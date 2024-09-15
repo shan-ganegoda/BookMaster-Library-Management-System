@@ -1,0 +1,27 @@
+.btnSide{
+    -fx-background-color:  #1E4263;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.btnSide:hover{
+    -fx-background-color: #2b5880;
+}
+
+#homeCard {
+    -fx-border-color: rgba(0, 0, 0, 0);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);
+    -fx-border-radius: 15px;
+    -fx-background-radius: 15px;
+    -fx-background-color: white;
+}
+
+.btnNav{
+    -fx-alignment: CENTER-LEFT;
+    -fx-padding: 0 0 0 60;
+    -fx-background-color: #9EC3FF;
+}
+
+.btnNav:hover{
+    -fx-background-color: #8FA9DB;
+}

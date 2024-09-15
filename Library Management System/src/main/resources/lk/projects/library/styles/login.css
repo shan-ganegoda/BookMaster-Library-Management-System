@@ -1,0 +1,31 @@
+#lblHeader{
+    -fx-font-size: 35;
+    -fx-text-fill: radial-gradient(center 50% 50%, radius 100%, rgba(110,218,156,1) 16%, #000000FF 89%);
+    -fx-font-family:"cursive";
+    -fx-font-weight: bold;
+}
+
+.txt{
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-border-color: rgb(55, 55, 55);
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+    -fx-border-radius: 10;
+    -fx-font-size: 16;
+    -fx-text-fill: black;
+    -fx-cursor: hand;
+}
+
+#btn-login{
+    -fx-background-color: #11B8EA;
+    -fx-background-radius: 8;
+    -fx-text-fill: white;
+    -fx-cursor: pointer;
+    -fx-border-color: transparent;
+}
+
+#btn-login:hover{
+    -fx-background-color: #0d96c1;
+}
+

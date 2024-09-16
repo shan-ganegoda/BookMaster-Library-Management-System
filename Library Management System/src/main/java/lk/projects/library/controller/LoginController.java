@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import lk.projects.library.HelloApplication;
 import lk.projects.library.dao.CommonDao;
 
@@ -30,7 +31,7 @@ public class LoginController {
         String username = txtUsername.getText();
         String password = txtPassword.getText();
 
-        System.out.println(password + " " + username);
+//        System.out.println(password + " " + username);
 
         ResultSet result = CommonDao.get("select * from user where username = '" + username + "' and password = '" + password + "'");
 
@@ -43,13 +44,20 @@ public class LoginController {
         }else{
             this.closeWindow();
 
+
+
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/lk/projects/library/view/mainwindow.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             Stage stage = new Stage();
-
-
+            stage.initStyle(StageStyle.TRANSPARENT);
             stage.setScene(scene);
+
+            MainWindowController controller = fxmlLoader.getController();
+            controller.setUsername(username);
+
             stage.show();
+
+
         }
     }
 

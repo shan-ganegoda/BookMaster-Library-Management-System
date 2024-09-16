@@ -1,0 +1,23 @@
+#topPanel{
+    -fx-background-color: #253659;
+    -fx-border-radius: 15;
+    -fx-background-radius: 15;
+}
+
+#searchPane{
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 15;
+    -fx-background-radius: 15;
+}
+
+#tablePane{
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 15;
+    -fx-background-radius: 15;
+}
+
+#formPanel{
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 15;
+    -fx-background-radius: 15;
+}

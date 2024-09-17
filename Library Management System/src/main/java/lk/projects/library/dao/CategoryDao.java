@@ -14,7 +14,6 @@ public class CategoryDao {
 
         try{
             String qry = "SELECT * FROM category where code='" + code +"'";
-            System.out.println(qry);
             ResultSet result = CommonDao.get(qry);
 
             result.next();
@@ -52,6 +51,16 @@ public class CategoryDao {
 
     public static String save(Category category) {
         String qry = "INSERT INTO category(name,code) VALUES('" +category.getName() +"','" +category.getCode()+"')";
+        return CommonDao.modify(qry);
+    }
+
+    public static String update(Category category) {
+        String qry = "UPDATE category set name='" + category.getName() +"',code='" + category.getCode() +"' WHERE id=" + category.getId();
+        return CommonDao.modify(qry);
+    }
+
+    public static String delete(int id) {
+        String qry = "DELETE FROM category WHERE id=" + id;
         return CommonDao.modify(qry);
     }
 }

@@ -196,7 +196,56 @@ public class CategoriesController implements Initializable {
         }
     }
 
-    public void update(){}
+    public void update(){
+        loadFormData();
+        currentCategory.setId(oldCategory.getId());
+
+        String errors = getErrors();
+
+        if(errors.isEmpty()){
+            String updates = getUpdates();
+
+            if(!updates.isEmpty()){
+                Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+                a.setTitle("BookMaster");
+                a.setHeaderText("Category Module - Update");
+                a.setContentText("You have following Updates \n\n" + updates);
+
+                Optional<ButtonType> result = a.showAndWait();
+                if(result.get() == ButtonType.OK){
+                    String status = CategoryService.put(currentCategory);
+                    if(status.equals("Success")){
+                        loadTable();
+                        clearForm();
+
+                        alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("BookMaster");
+                        alert.setHeaderText("Category Module - Update");
+                        alert.setContentText("Successfully Updated");
+                        alert.show();
+                    }else{
+                        alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("BookMaster");
+                        alert.setHeaderText("Category Module - Update");
+                        alert.setContentText("Failed to Update as \n\n" + status);
+                        alert.show();
+                    }
+                }
+            }else{
+                alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("BookMaster");
+                alert.setHeaderText("Category Module - Update");
+                alert.setContentText("Nothing To Update");
+                alert.show();
+            }
+        }else{
+            alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("BookMaster");
+            alert.setHeaderText("Category Module - Update");
+            alert.setContentText("You Have Following Errors:\n\n" + errors);
+            alert.show();
+        }
+    }
 
     public void delete(){}
 

@@ -26,4 +26,28 @@ public class CategoryService {
 
         return msg;
     }
+
+    public static String put(Category category) {
+        String msg = "";
+        String err = "";
+
+        System.out.println(category +"Service:34");
+
+        Category res = CategoryDao.getByCode(category.getCode());
+
+        if( res != null && !res.getCode().equals(category.getCode()) ) err = err + "\nCode Exists";
+
+        if(err.isEmpty()) {
+            String status = CategoryDao.update(category);
+            if(status.equals("1")) {
+                msg = "Success";
+            }else{
+                msg = "Fail caused by :" + status;
+            }
+        }else{
+            msg = "Fail caused by :" + err;
+        }
+
+        return msg;
+    }
 }

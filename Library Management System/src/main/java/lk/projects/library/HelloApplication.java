@@ -19,6 +19,7 @@ public class HelloApplication extends Application {
         Scene scene = new Scene(fxmlLoader.load());
 //        stage.setTitle("BookMaster | Library Management System");
         stage.initStyle(StageStyle.TRANSPARENT);
+        stage.centerOnScreen();
         stage.setScene(scene);
         stage.show();
     }

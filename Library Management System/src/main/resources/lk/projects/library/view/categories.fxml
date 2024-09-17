@@ -37,17 +37,17 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField layoutX="106.0" layoutY="58.0" prefHeight="25.0" prefWidth="197.0" />
+            <TextField fx:id="txtSearchName" layoutX="106.0" layoutY="58.0" prefHeight="25.0" prefWidth="197.0" promptText="John Doe" />
             <Label layoutX="29.0" layoutY="94.0" text="Code">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField layoutX="106.0" layoutY="92.0" prefHeight="25.0" prefWidth="197.0" />
+            <TextField fx:id="txtSearchClear" layoutX="106.0" layoutY="92.0" prefHeight="25.0" prefWidth="197.0" promptText="C0000" />
             <HBox alignment="TOP_CENTER" layoutX="41.0" layoutY="147.0" prefHeight="37.0" prefWidth="275.0" spacing="10.0">
                <children>
-                  <Button mnemonicParsing="false" text="Search" />
-                  <Button mnemonicParsing="false" text="CLEAR" />
+                  <Button fx:id="btnSearch" mnemonicParsing="false" text="Search" />
+                  <Button fx:id="btnSearchClear" mnemonicParsing="false" text="CLEAR" />
                </children>
             </HBox>
          </children>
@@ -63,10 +63,11 @@
                   </Label>
                </children>
             </Pane>
-            <TableView layoutY="37.0" prefHeight="289.0" prefWidth="480.0">
+            <TableView fx:id="tblCategory" layoutY="37.0" prefHeight="289.0" prefWidth="480.0">
               <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
+                <TableColumn fx:id="idCol" prefWidth="75.0" text="#" />
+                <TableColumn fx:id="nameCol" prefWidth="200.0" text="Name" />
+                  <TableColumn fx:id="codeCol" prefWidth="204.0" text="Code" />
               </columns>
             </TableView>
          </children>
@@ -78,13 +79,13 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField layoutX="99.0" layoutY="58.0" prefHeight="25.0" prefWidth="197.0" />
+            <TextField fx:id="txtName" layoutX="99.0" layoutY="58.0" prefHeight="25.0" prefWidth="197.0" promptText="John Doe" />
             <Label layoutX="22.0" layoutY="94.0" text="Code">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField layoutX="99.0" layoutY="92.0" prefHeight="25.0" prefWidth="197.0" />
+            <TextField fx:id="txtCode" layoutX="99.0" layoutY="92.0" prefHeight="25.0" prefWidth="197.0" promptText="C0000" />
             <Pane layoutX="1.0" layoutY="-3.0" prefHeight="37.0" prefWidth="322.0" style="-fx-background-color: #253659; -fx-background-radius: 15 0 0 15; -fx-background-radius: 15 15 0 0;">
                <children>
                   <Label layoutX="22.0" layoutY="4.0" prefHeight="30.0" prefWidth="113.0" text="Form" textFill="WHITE">
@@ -96,10 +97,10 @@
             </Pane>
             <HBox alignment="TOP_CENTER" layoutX="25.0" layoutY="144.0" prefHeight="37.0" prefWidth="275.0" spacing="10.0">
                <children>
-                  <Button mnemonicParsing="false" text="ADD" />
-                  <Button mnemonicParsing="false" text="UPDATE" />
-                  <Button alignment="TOP_CENTER" mnemonicParsing="false" text="DELETE" />
-                  <Button mnemonicParsing="false" text="CLEAR" textAlignment="CENTER" />
+                  <Button fx:id="btnAdd" onMouseClicked="#add" mnemonicParsing="false" text="ADD" />
+                  <Button fx:id="btnUpdate" onMouseClicked="#update" mnemonicParsing="false" text="UPDATE" />
+                  <Button fx:id="btnDelete" onMouseClicked="#delete" alignment="TOP_CENTER" mnemonicParsing="false" text="DELETE" />
+                  <Button fx:id="btnClear" onMouseClicked="#clearForm" mnemonicParsing="false" text="CLEAR" textAlignment="CENTER" />
                </children>
             </HBox>
          </children>

@@ -3,6 +3,10 @@ package lk.projects.library.service;
 import lk.projects.library.dao.CategoryDao;
 import lk.projects.library.entity.Category;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 public class CategoryService {
 
     public static String post(Category category) {
@@ -60,5 +64,35 @@ public class CategoryService {
         }
 
         return msg;
+    }
+
+    public static List<Category> get(HashMap<String, String> params) {
+
+        List<Category> categories = new ArrayList<Category>();
+
+        if(params.isEmpty()){
+            categories = CategoryDao.getAll();
+        }
+
+        String ssname = params.get("ssname");
+        String sscode = params.get("sscode");
+
+        if(ssname.equals("") && sscode.equals("")){
+            categories = CategoryDao.getAll();
+        }
+
+        if(!ssname.equals("") && sscode.equals("")){
+            categories = CategoryDao.getAllByName(ssname);
+        }
+
+        if(ssname.equals("") && !sscode.equals("")){
+            categories = CategoryDao.getAllByCode(sscode);
+        }
+
+        if(!ssname.equals("") && !sscode.equals("")){
+            categories = CategoryDao.getAllByNameAndCode(ssname,sscode);
+        }
+
+        return categories;
     }
 }

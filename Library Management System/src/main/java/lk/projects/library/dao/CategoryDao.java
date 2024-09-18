@@ -29,11 +29,11 @@ public class CategoryDao {
 
     }
 
-    public static List<Category> getAll() {
+    public static List<Category> get(String qry) {
         List<Category> categoryList = new ArrayList<Category>();
 
         try{
-            String qry = "SELECT * FROM category";
+            //String qry = "SELECT * FROM category";
             ResultSet result = CommonDao.get(qry);
 
             while (result.next()) {
@@ -49,6 +49,11 @@ public class CategoryDao {
         return categoryList;
     }
 
+    public static List<Category> getAll() {
+        String qry = "SELECT * FROM category";
+        return get(qry);
+    }
+
     public static String save(Category category) {
         String qry = "INSERT INTO category(name,code) VALUES('" +category.getName() +"','" +category.getCode()+"')";
         return CommonDao.modify(qry);
@@ -62,5 +67,20 @@ public class CategoryDao {
     public static String delete(int id) {
         String qry = "DELETE FROM category WHERE id=" + id;
         return CommonDao.modify(qry);
+    }
+
+    public static List<Category> getAllByName(String name) {
+        String qry = "SELECT * FROM category where name like '" + name + "%'";
+        return get(qry);
+    }
+
+    public static List<Category> getAllByCode(String code) {
+        String qry = "SELECT * FROM category where code='" + code + "'";
+        return get(qry);
+    }
+
+    public static List<Category> getAllByNameAndCode(String name, String code) {
+        String qry = "SELECT * FROM category where code='" + code + "' AND name='" + name + "'";
+        return get(qry);
     }
 }

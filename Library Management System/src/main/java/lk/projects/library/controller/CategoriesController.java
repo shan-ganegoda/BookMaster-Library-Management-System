@@ -11,7 +11,7 @@ import lk.projects.library.entity.Category;
 import lk.projects.library.service.CategoryService;
 
 import java.net.URL;
-import java.util.Objects;
+import java.util.HashMap;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -27,7 +27,7 @@ public class CategoriesController implements Initializable {
     private TextField txtSearchName;
 
     @FXML
-    private TextField txtSearchClear;
+    private TextField txtSearchCode;
 
     @FXML
     private Button btnAdd;
@@ -277,6 +277,24 @@ public class CategoriesController implements Initializable {
             }
 
         }
+    }
+
+    public void handleSearch(){
+        String ssname = txtSearchName.getText();
+        String sscode = txtSearchCode.getText();
+
+        HashMap<String,String> params = new HashMap<>();
+        params.put("ssname",ssname);
+        params.put("sscode",sscode);
+
+        categoryList = FXCollections.observableList(CategoryService.get(params));
+        fillTable();
+    }
+
+    public void searchClear(){
+        txtSearchName.clear();
+        txtSearchCode.clear();
+        loadTable();
     }
 
     public void clearForm(){

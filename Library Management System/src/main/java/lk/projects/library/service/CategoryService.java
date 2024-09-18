@@ -31,8 +31,6 @@ public class CategoryService {
         String msg = "";
         String err = "";
 
-        System.out.println(category +"Service:34");
-
         Category res = CategoryDao.getByCode(category.getCode());
 
         if( res != null && !res.getCode().equals(category.getCode()) ) err = err + "\nCode Exists";
@@ -46,6 +44,19 @@ public class CategoryService {
             }
         }else{
             msg = "Fail caused by :" + err;
+        }
+
+        return msg;
+    }
+
+    public static String delete(Category category) {
+        String msg = "";
+
+        String dberror = CategoryDao.delete(category.getId());
+        if(dberror.equals("1")) {
+            msg = "Success";
+        }else{
+            msg = "Fail caused by :" + dberror;
         }
 
         return msg;

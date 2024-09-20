@@ -19,7 +19,9 @@ import lk.projects.library.service.CategoryService;
 import lk.projects.library.service.LanguageService;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class BooksController implements Initializable {
@@ -159,6 +161,7 @@ public class BooksController implements Initializable {
         });
 
         loadView();
+        enableButtons(true,false,false);
     }
 
     private void loadView() {
@@ -240,5 +243,170 @@ public class BooksController implements Initializable {
 
         enableButtons(false,true,true);
 
+    }
+
+    public String getErrors(){
+        String errors = "";
+
+        if(currentBook.getTitle() == null){
+            errors += "\nInvalid Title";
+        }
+        if(currentBook.getCode() == null){
+            errors += "\nInvalid Code";
+        }
+        if(currentBook.getAuthor() == null){
+            errors += "\nInvalid Author";
+        }
+        if(currentBook.getPublisher() == null){
+            errors += "\nInvalid Publisher";
+        }
+        if(currentBook.getYopublication() == null){
+            errors += "\nInvalid Year Of Publication";
+        }
+        if(currentBook.getIsbn() == null){
+            errors += "\nInvalid Isbn";
+        }
+        if(currentBook.getPages() == null){
+            errors += "\nInvalid Pages";
+        }
+        if(currentBook.getDoadded() == null){
+            errors += "\nInvalid Date of Added";
+        }
+        if(currentBook.getCategory() == null){
+            errors += "\nInvalid Category";
+        }
+        if(currentBook.getLanguage() == null){
+            errors += "\nInvalid Language";
+        }
+        if(currentBook.getUser() == null){
+            errors += "\nInvalid User";
+        }
+
+        return errors;
+    }
+
+    public String getUpdates(){
+        String updates = "";
+
+        if(!currentBook.getTitle().equals(oldBook.getTitle())){
+            updates += "\nTitle Updated ";
+        }
+        if(!currentBook.getCode().equals(oldBook.getCode())){
+            updates += "\nCode Updated ";
+        }
+        if(!currentBook.getAuthor().equals(oldBook.getAuthor())){
+            updates += "\nAuthor Updated ";
+        }
+        if(!currentBook.getPublisher().equals(oldBook.getPublisher())){
+            updates += "\nPublisher Updated ";
+        }
+        if(!currentBook.getYopublication().equals(oldBook.getYopublication())){
+            updates += "\nYear of Publication Updated ";
+        }
+        if(!currentBook.getIsbn().equals(oldBook.getIsbn())){
+            updates += "\nIsbn Updated ";
+        }
+        if(!currentBook.getPages().equals(oldBook.getPages())){
+            updates += "\nPages Updated ";
+        }
+        if(!currentBook.getDoadded().equals(oldBook.getDoadded())){
+            updates += "\nDate of Added Updated ";
+        }
+        if(!currentBook.getCategory().equals(oldBook.getCategory())){
+            updates += "\nCategory Updated ";
+        }
+        if(!currentBook.getLanguage().equals(oldBook.getLanguage())){
+            updates += "\nLanguage Updated ";
+        }
+        if(!currentBook.getUser().equals(oldBook.getUser())){
+            updates += "\nUser Updated ";
+        }
+        return updates;
+    }
+
+    public void loadFormData(){
+        String title = txtTitle.getText();;
+        String code = txtCode.getText();
+        String author = txtAuthor.getText();
+        String publisher = txtPublisher.getText();
+        Integer yopublish = Integer.parseInt(txtYear.getText());
+        String isbn = txtIsbn.getText();
+        Integer pages = Integer.parseInt(txtPages.getText());
+        LocalDate doadded = txtAdded.getValue();
+        Category selectedCategory = cmbCategory.getSelectionModel().getSelectedItem();
+        Language selectedLanguage = cmbLanguage.getSelectionModel().getSelectedItem();
+        User selectedUser = cmbUser.getSelectionModel().getSelectedItem();
+
+        currentBook = Books.builder()
+                .title(title)
+                .code(code)
+                .author(author)
+                .publisher(publisher)
+                .yopublication(yopublish)
+                .isbn(isbn)
+                .pages(pages)
+                .doadded(doadded)
+                .category(selectedCategory)
+                .language(selectedLanguage)
+                .user(selectedUser)
+                .build();
+    }
+
+    public void add(){
+        loadFormData();
+
+        String errors = getErrors();
+        alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("BookMaster");
+        alert.setHeaderText("Books Module");
+
+        if(errors.isEmpty()){
+            String confmsg = "Are you sure to Proceed?\n";
+            alert.setContentText(confmsg);
+
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if(result.get() == ButtonType.OK){
+                String status = BookService.post(currentBook);
+                if(status.equals("Success")){
+                    loadView();
+                    clearForm();
+
+                    alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("BookMaster");
+                    alert.setHeaderText("Books Module");
+                    alert.setContentText("Successfully Saved");
+                    alert.show();
+                }else{
+                    alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("BookMaster");
+                    alert.setHeaderText("Books Module");
+                    alert.setContentText("Failed to save as \n\n" + status);
+                    alert.show();
+                }
+            }
+        }else{
+            alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("BookMaster");
+            alert.setHeaderText("Category Module");
+            alert.setContentText("You have Errors:" + errors);
+            alert.show();
+        }
+    }
+
+    public void clearForm(){
+        txtTitle.clear();
+        txtCode.clear();
+        txtAuthor.clear();
+        txtPublisher.clear();
+        txtYear.clear();
+        txtIsbn.clear();
+        txtPages.clear();
+        txtAdded.setValue(null);
+        cmbCategory.setValue(null);
+        cmbLanguage.setValue(null);
+        cmbUser.setValue(null);
+
+        enableButtons(true,false,false);
     }
 }

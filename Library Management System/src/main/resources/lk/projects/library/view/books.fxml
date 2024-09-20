@@ -78,8 +78,8 @@
                         <TableColumn fx:id="idCol" prefWidth="39.20001220703125" text="#" />
                         <TableColumn fx:id="titleCol" prefWidth="117.60003662109375" text="Title" />
                         <TableColumn fx:id="codeCol" prefWidth="93.5999755859375" text="Code" />
-                        <TableColumn fx:id="authorCol" prefWidth="106.39990234375" text="Author" />
-                        <TableColumn fx:id="yearCol" prefWidth="118.4000244140625" text="Year" />
+                        <TableColumn fx:id="authorCol" prefWidth="141.0" text="Author" />
+                        <TableColumn fx:id="yearCol" prefWidth="85.0" text="Year" />
                      </columns>
                   </TableView>
                </children>
@@ -97,7 +97,7 @@
                   </Pane>
                   <HBox alignment="TOP_CENTER" layoutX="24.0" layoutY="471.0" prefHeight="37.0" prefWidth="275.0" spacing="10.0">
                      <children>
-                        <Button fx:id="btnAdd" mnemonicParsing="false" text="ADD" />
+                        <Button fx:id="btnAdd" mnemonicParsing="false" onMouseClicked="#add" text="ADD" />
                         <Button fx:id="btnUpdate" mnemonicParsing="false" text="UPDATE" />
                         <Button fx:id="btnDelete" alignment="TOP_CENTER" mnemonicParsing="false" text="DELETE" />
                         <Button fx:id="btnClear" mnemonicParsing="false" text="CLEAR" textAlignment="CENTER" />
@@ -168,9 +168,9 @@
                         <TextField fx:id="txtCode" prefHeight="25.0" prefWidth="197.0" promptText="B0000" />
                         <TextField fx:id="txtAuthor" prefHeight="25.0" prefWidth="197.0" promptText="John Doe" />
                         <TextField fx:id="txtPublisher" prefHeight="25.0" prefWidth="197.0" promptText="John Doe" />
-                        <TextField fx:id="txtYear" prefHeight="25.0" prefWidth="197.0" promptText="0-306-40615-2" />
-                        <TextField fx:id="txtIsbn" prefHeight="25.0" prefWidth="197.0" promptText="xx" />
-                        <TextField fx:id="txtPages" prefHeight="25.0" prefWidth="197.0" promptText="xx" />
+                        <TextField fx:id="txtYear" prefHeight="25.0" prefWidth="197.0" promptText="xxxx" />
+                        <TextField fx:id="txtIsbn" prefHeight="25.0" prefWidth="197.0" promptText="0-306-40615-2" />
+                        <TextField fx:id="txtPages" prefHeight="25.0" prefWidth="197.0" promptText="xxx" />
                         <DatePicker fx:id="txtAdded" prefHeight="25.0" prefWidth="197.0" promptText="2024-01-01" />
                         <ComboBox fx:id="cmbCategory" prefHeight="25.0" prefWidth="197.0" promptText="Select Category" />
                         <ComboBox fx:id="cmbLanguage" prefHeight="25.0" prefWidth="197.0" promptText="Select Language" />

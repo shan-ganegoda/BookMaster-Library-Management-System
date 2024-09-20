@@ -1,6 +1,7 @@
 package lk.projects.library.dao;
 
 import lk.projects.library.entity.Books;
+import lk.projects.library.entity.Category;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -75,5 +76,29 @@ public class BookDao {
     public static List<Books> getAll() {
         String qry = "SELECT * FROM books";
         return get(qry);
+    }
+
+    public static Books getByCode(String code) {
+        String qry = "SELECT * FROM books where code='" + code +"'";
+        return getBy(qry);
+    }
+
+    public static String save(Books books) {
+        String qry = "INSERT INTO books (title,code,author,publisher,yopublication,isbn,pages,doadded,category_id,language_id,user_id) VALUES('" +
+                books.getTitle() +"','" +
+                books.getCode()+"','" +
+                books.getAuthor()+"','" +
+                books.getPublisher()+"','" +
+                books.getYopublication()+"','" +
+                books.getIsbn()+"','" +
+                books.getPages()+"','" +
+                books.getDoadded()+"','" +
+                books.getCategory().getId()+"','" +
+                books.getLanguage().getId()+"','" +
+                books.getUser().getId() +"')";
+
+        System.out.println(qry);
+
+        return CommonDao.modify(qry);
     }
 }

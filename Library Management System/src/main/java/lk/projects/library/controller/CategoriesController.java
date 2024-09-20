@@ -181,15 +181,15 @@ public class CategoriesController implements Initializable {
                     alert1.show();
                 }else{
                     Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
-                    alert2.setTitle("Haervest System");
+                    alert2.setTitle("BookMaster");
                     alert2.setHeaderText("Category Module");
-                    alert2.setContentText("Faild to save as \n\n" + status);
+                    alert2.setContentText("Failed to save as \n\n" + status);
                     alert2.show();
                 }
             }
         }else{
             Alert alert3 = new Alert(Alert.AlertType.INFORMATION);
-            alert3.setTitle("Haervest System");
+            alert3.setTitle("BookMaster");
             alert3.setHeaderText("Category Module");
             alert3.setContentText("You have Errors:" + errors);
             alert3.show();

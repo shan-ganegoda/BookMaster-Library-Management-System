@@ -1,7 +1,9 @@
 package lk.projects.library.service;
 
 import lk.projects.library.dao.BookDao;
+import lk.projects.library.dao.CategoryDao;
 import lk.projects.library.entity.Books;
+import lk.projects.library.entity.Category;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,5 +39,27 @@ public class BookService {
 //        }
 
         return books;
+    }
+
+    public static String post(Books currentBook) {
+        String msg = "";
+        String err = "";
+
+        Books res = BookDao.getByCode(currentBook.getCode());
+
+        if(res != null) err = err + "\nCode Exists";
+
+        if(err.isEmpty()) {
+            String status = BookDao.save(currentBook);
+            if(status.equals("1")) {
+                msg = "Success";
+            }else{
+                msg = "Fail caused by :" + status;
+            }
+        }else{
+            msg = "Fail caused by :" + err;
+        }
+
+        return msg;
     }
 }

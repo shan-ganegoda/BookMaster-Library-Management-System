@@ -312,15 +312,19 @@ public class BooksController implements Initializable {
         if(!currentBook.getDoadded().equals(oldBook.getDoadded())){
             updates += "\nDate of Added Updated ";
         }
-        if(!currentBook.getCategory().equals(oldBook.getCategory())){
+        if(!currentBook.getCategory().getId().equals(oldBook.getCategory().getId())){
             updates += "\nCategory Updated ";
         }
-        if(!currentBook.getLanguage().equals(oldBook.getLanguage())){
+        if(!currentBook.getLanguage().getId().equals(oldBook.getLanguage().getId())){
             updates += "\nLanguage Updated ";
         }
-        if(!currentBook.getUser().equals(oldBook.getUser())){
+        if(!currentBook.getUser().getId().equals(oldBook.getUser().getId())){
             updates += "\nUser Updated ";
         }
+
+        System.out.println("Current Book - "+currentBook );
+        System.out.println("Old Book - "+oldBook );
+
         return updates;
     }
 
@@ -391,6 +395,89 @@ public class BooksController implements Initializable {
             alert.setHeaderText("Category Module");
             alert.setContentText("You have Errors:" + errors);
             alert.show();
+        }
+    }
+
+    public void update(){
+        loadFormData();
+        currentBook.setId(oldBook.getId());
+
+        String errors = getErrors();
+
+        if(errors.isEmpty()){
+            String updates = getUpdates();
+
+            if(!updates.isEmpty()){
+                Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+                a.setTitle("BookMaster");
+                a.setHeaderText("Books Module - Update");
+                a.setContentText("You have following Updates \n\n" + updates);
+
+                Optional<ButtonType> result = a.showAndWait();
+                if(result.get() == ButtonType.OK){
+                    String status = BookService.put(currentBook);
+                    if(status.equals("Success")){
+                        loadView();
+                        clearForm();
+
+                        alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("BookMaster");
+                        alert.setHeaderText("Books Module - Update");
+                        alert.setContentText("Successfully Updated");
+                        alert.show();
+                    }else{
+                        alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("BookMaster");
+                        alert.setHeaderText("Books Module - Update");
+                        alert.setContentText("Failed to Update as \n\n" + status);
+                        alert.show();
+                    }
+                }
+            }else{
+                alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("BookMaster");
+                alert.setHeaderText("Books Module - Update");
+                alert.setContentText("Nothing To Update");
+                alert.show();
+            }
+        }else{
+            alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("BookMaster");
+            alert.setHeaderText("Books Module - Update");
+            alert.setContentText("You Have Following Errors:\n\n" + errors);
+            alert.show();
+        }
+    }
+
+    public void delete(){
+        alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("BookMaster");
+        alert.setHeaderText("Books Module - Delete");
+        alert.setContentText("Are you sure to Delete ?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if(result.get() == ButtonType.OK){
+            String status = BookService.delete(oldBook);
+            if(status.equals("Success")){
+                loadView();
+                clearForm();
+                enableButtons(true,false,false);
+
+                alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("BookMaster");
+                alert.setHeaderText("Books Module");
+                alert.setContentText("Book Successfully Deleted");
+                alert.show();
+
+            }else{
+                alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("BookMaster");
+                alert.setHeaderText("Books Module - Delete");
+                alert.setContentText("Failed Due to :\n\n" + status);
+                alert.show();
+            }
+
         }
     }
 

@@ -83,6 +83,11 @@ public class BookDao {
         return getBy(qry);
     }
 
+    public static Books getByIsbn(String isbn) {
+        String qry = "SELECT * FROM books where isbn='" + isbn +"'";
+        return getBy(qry);
+    }
+
     public static String save(Books books) {
         String qry = "INSERT INTO books (title,code,author,publisher,yopublication,isbn,pages,doadded,category_id,language_id,user_id) VALUES('" +
                 books.getTitle() +"','" +
@@ -99,6 +104,28 @@ public class BookDao {
 
         System.out.println(qry);
 
+        return CommonDao.modify(qry);
+    }
+
+
+    public static String update(Books currentBook) {
+        String qry = "UPDATE books set title='" + currentBook.getTitle() +
+                "',code='" + currentBook.getCode() +
+                "',author='" + currentBook.getAuthor() +
+                "',publisher='" + currentBook.getPublisher() +
+                "',yopublication='" + currentBook.getYopublication() +
+                "',isbn='" + currentBook.getIsbn() +
+                "',pages='" + currentBook.getPages() +
+                "',doadded='" + currentBook.getDoadded() +
+                "',category_id='" + currentBook.getCategory().getId() +
+                "',language_id='" + currentBook.getLanguage().getId() +
+                "',user_id='" + currentBook.getUser().getId() +
+                "' WHERE id=" + currentBook.getId();
+        return CommonDao.modify(qry);
+    }
+
+    public static String delete(Integer id) {
+        String qry = "DELETE FROM books WHERE id=" + id;
         return CommonDao.modify(qry);
     }
 }

@@ -46,8 +46,10 @@ public class BookService {
         String err = "";
 
         Books res = BookDao.getByCode(currentBook.getCode());
+        Books rest = BookDao.getByIsbn(currentBook.getIsbn());
 
         if(res != null) err = err + "\nCode Exists";
+        if(rest != null) err = err + "\nIsbn Exists";
 
         if(err.isEmpty()) {
             String status = BookDao.save(currentBook);
@@ -58,6 +60,43 @@ public class BookService {
             }
         }else{
             msg = "Fail caused by :" + err;
+        }
+
+        return msg;
+    }
+
+    public static String put(Books currentBook) {
+        String msg = "";
+        String err = "";
+
+        Books res = BookDao.getByCode(currentBook.getCode());
+        Books rest = BookDao.getByIsbn(currentBook.getIsbn());
+
+        if( res != null && !res.getCode().equals(currentBook.getCode()) ) err = err + "\nCode Exists";
+        if( rest != null && !rest.getIsbn().equals(currentBook.getIsbn()) ) err = err + "\nIsbn Exists";
+
+        if(err.isEmpty()) {
+            String status = BookDao.update(currentBook);
+            if(status.equals("1")) {
+                msg = "Success";
+            }else{
+                msg = "Fail caused by :" + status;
+            }
+        }else{
+            msg = "Fail caused by :" + err;
+        }
+
+        return msg;
+    }
+
+    public static String delete(Books oldBook) {
+        String msg = "";
+
+        String dberror = BookDao.delete(oldBook.getId());
+        if(dberror.equals("1")) {
+            msg = "Success";
+        }else{
+            msg = "Fail caused by :" + dberror;
         }
 
         return msg;

@@ -20,6 +20,7 @@ import lk.projects.library.service.LanguageService;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -85,6 +86,15 @@ public class BooksController implements Initializable {
 
     @FXML
     private Button btnDelete;
+
+    @FXML
+    private TextField txtSearchTitle;
+
+    @FXML
+    private TextField txtSearchCode;
+
+    @FXML
+    private TextField txtSearchAuthor;
 
     ObservableList<User> users;
     ObservableList<Category> categories;
@@ -479,6 +489,26 @@ public class BooksController implements Initializable {
             }
 
         }
+    }
+
+    public void handleSearch(){
+        String sstitle = txtSearchTitle.getText();
+        String sscode = txtSearchCode.getText();
+        String ssauthor = txtSearchAuthor.getText();
+
+        HashMap<String,String> params = new HashMap<>();
+        params.put("sstitle",sstitle);
+        params.put("sscode",sscode);
+        params.put("ssauthor",ssauthor);
+
+        books = FXCollections.observableList(BookService.get(params));
+        fillTable();
+    }
+
+    public void searchClear(){
+        txtSearchTitle.clear();
+        txtSearchCode.clear();
+        loadView();
     }
 
     public void clearForm(){

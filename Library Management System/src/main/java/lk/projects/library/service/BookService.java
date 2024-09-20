@@ -19,24 +19,41 @@ public class BookService {
             books = BookDao.getAll();
         }
 
-//        String ssname = params.get("ssname");
-//        String sscode = params.get("sscode");
-//
-//        if(ssname.equals("") && sscode.equals("")){
-//            categories = CategoryDao.getAll();
-//        }
-//
-//        if(!ssname.equals("") && sscode.equals("")){
-//            categories = CategoryDao.getAllByName(ssname);
-//        }
-//
-//        if(ssname.equals("") && !sscode.equals("")){
-//            categories = CategoryDao.getAllByCode(sscode);
-//        }
-//
-//        if(!ssname.equals("") && !sscode.equals("")){
-//            categories = CategoryDao.getAllByNameAndCode(ssname,sscode);
-//        }
+        String sstitle = params.get("sstitle");
+        String sscode = params.get("sscode");
+        String ssauthor = params.get("ssauthor");
+
+        if(sstitle.isEmpty() && sscode.isEmpty() && ssauthor.isEmpty()){
+            books = BookDao.getAll();
+        }
+
+        if(!sstitle.isEmpty() && sscode.isEmpty() && ssauthor.isEmpty()){
+            books = BookDao.getAllByTitle(sstitle);
+        }
+
+        if(sstitle.isEmpty() && !sscode.isEmpty() && ssauthor.isEmpty()){
+            books = BookDao.getAllByCode(sscode);
+        }
+
+        if(sstitle.isEmpty() && sscode.isEmpty() && !ssauthor.isEmpty()){
+            books = BookDao.getAllByAuthor(ssauthor);
+        }
+
+        if(!sstitle.isEmpty() && !sscode.isEmpty() && ssauthor.isEmpty()){
+            books = BookDao.getByTitleAndCode(sstitle,sscode);
+        }
+
+        if(!sstitle.isEmpty() && sscode.isEmpty() && !ssauthor.isEmpty()){
+            books = BookDao.getByTitleAndAuthor(sstitle,ssauthor);
+        }
+
+        if(sstitle.isEmpty() && !sscode.isEmpty() && !ssauthor.isEmpty()){
+            books = BookDao.getByCodeAndAuthor(sscode,ssauthor);
+        }
+
+        if(!sstitle.isEmpty() && !sscode.isEmpty() && !ssauthor.isEmpty()){
+            books = BookDao.getAllByTitleAndCodeAndAuthor(sstitle,sscode,ssauthor);
+        }
 
         return books;
     }

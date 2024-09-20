@@ -128,4 +128,39 @@ public class BookDao {
         String qry = "DELETE FROM books WHERE id=" + id;
         return CommonDao.modify(qry);
     }
+
+    public static List<Books> getAllByTitle(String title) {
+        String qry = "SELECT * FROM books where title like '" + title + "%'";
+        return get(qry);
+    }
+
+    public static List<Books> getAllByCode(String code) {
+        String qry = "SELECT * FROM books where code ='" + code + "'";
+        return get(qry);
+    }
+
+    public static List<Books> getAllByAuthor(String author) {
+        String qry = "SELECT * FROM books where author Like '" + author + "%'";
+        return get(qry);
+    }
+
+    public static List<Books> getByTitleAndCode(String sstitle, String sscode) {
+        String qry = "SELECT * FROM books where title Like '" + sstitle + "%' AND code ='" + sscode + "'";
+        return get(qry);
+    }
+
+    public static List<Books> getByTitleAndAuthor(String sstitle, String ssauthor) {
+        String qry = "SELECT * FROM books where title Like '" + sstitle + "%' AND author Like '" + ssauthor + "%'";
+        return get(qry);
+    }
+
+    public static List<Books> getByCodeAndAuthor(String sscode, String ssauthor) {
+        String qry = "SELECT * FROM books where code = '" + sscode + "' AND author Like '" + ssauthor + "%'";
+        return get(qry);
+    }
+
+    public static List<Books> getAllByTitleAndCodeAndAuthor(String sstitle, String sscode, String ssauthor) {
+        String qry = "SELECT * FROM books where code = '" + sscode + "' AND author Like '" + ssauthor + "%' AND title Like '" + sstitle + "%'";
+        return get(qry);
+    }
 }

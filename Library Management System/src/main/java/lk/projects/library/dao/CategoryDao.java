@@ -9,11 +9,11 @@ import java.util.List;
 
 public class CategoryDao {
 
-    public static Category getByCode(String code) {
+    public static Category getBy(String qry) {
         Category category = new Category();
 
         try{
-            String qry = "SELECT * FROM category where code='" + code +"'";
+            //String qry = "SELECT * FROM category where code='" + code +"'";
             ResultSet result = CommonDao.get(qry);
 
             result.next();
@@ -27,6 +27,16 @@ public class CategoryDao {
             return null;
         }
 
+    }
+
+    public static Category getByCode(String code) {
+        String qry = "SELECT * FROM category where code='" + code +"'";
+        return getBy(qry);
+    }
+
+    public static Category getById(int id) {
+        String qry = "SELECT * FROM category where id=" + id;
+        return getBy(qry);
     }
 
     public static List<Category> get(String qry) {

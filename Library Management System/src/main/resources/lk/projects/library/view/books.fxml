@@ -172,9 +172,9 @@
                         <TextField fx:id="txtIsbn" prefHeight="25.0" prefWidth="197.0" promptText="xx" />
                         <TextField fx:id="txtPages" prefHeight="25.0" prefWidth="197.0" promptText="xx" />
                         <DatePicker fx:id="txtAdded" prefHeight="25.0" prefWidth="197.0" promptText="2024-01-01" />
-                        <ComboBox fx:id="cmbCategory" prefHeight="25.0" prefWidth="197.0" />
-                        <ComboBox fx:id="cmbLanguage" prefHeight="25.0" prefWidth="197.0" />
-                        <ComboBox fx:id="cmbUser" prefHeight="25.0" prefWidth="197.0" />
+                        <ComboBox fx:id="cmbCategory" prefHeight="25.0" prefWidth="197.0" promptText="Select Category" />
+                        <ComboBox fx:id="cmbLanguage" prefHeight="25.0" prefWidth="197.0" promptText="Select Language" />
+                        <ComboBox fx:id="cmbUser" prefHeight="25.0" prefWidth="197.0" promptText="Select User" />
                      </children>
                   </VBox>
                </children>

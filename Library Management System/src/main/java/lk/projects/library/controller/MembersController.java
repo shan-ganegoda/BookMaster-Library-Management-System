@@ -14,6 +14,7 @@ import lk.projects.library.service.GenderService;
 import lk.projects.library.service.MemberStatusService;
 
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class MembersController implements Initializable {
@@ -183,7 +184,57 @@ public class MembersController implements Initializable {
         int row = tblMembers.getSelectionModel().getSelectedIndex();
         if (row > -1) {
             Member member = members.get(row);
-            //fillForm(book);
+            fillForm(member);
         }
+    }
+
+    public void fillForm(Member member) {
+
+        oldMember = member;
+
+        currentMember = Member.builder()
+                .id(member.getId())
+                .fullname(member.getFullname())
+                .code(member.getCode())
+                .dob(member.getDob())
+                .nic(member.getNic())
+                .address(member.getAddress())
+                .doregistered(member.getDoregistered())
+                .gender(member.getGender())
+                .memberstatus(member.getMemberstatus())
+                .user(member.getUser())
+                .build();
+
+
+        txtFullName.setText(member.getFullname());;
+        txtCode.setText(member.getCode());
+        txtDob.setValue(member.getDob());
+        txtNic.setText(member.getNic());
+        txtAddress.setText(member.getAddress());
+        txtDoRegistered.setValue(member.getDoregistered());
+
+        for (Gender gen : genders) {
+            if (Objects.equals(gen.getId(), member.getGender().getId())) {
+                cmbGender.setValue(gen);
+                break;
+            }
+        }
+
+        for (MemberStatus ms : memberStatuses) {
+            if (Objects.equals(ms.getId(), member.getMemberstatus().getId())) {
+                cmbMemberStatus.setValue(ms);
+                break;
+            }
+        }
+
+        for (User usr : users) {
+            if (Objects.equals(usr.getId(), member.getUser().getId())) {
+                cmbUser.setValue(usr);
+                break;
+            }
+        }
+
+        enableButtons(false,true,true);
+
     }
 }

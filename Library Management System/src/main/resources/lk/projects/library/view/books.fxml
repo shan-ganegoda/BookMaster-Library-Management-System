@@ -99,8 +99,8 @@
                      <children>
                         <Button fx:id="btnAdd" mnemonicParsing="false" onMouseClicked="#add" text="ADD" />
                         <Button fx:id="btnUpdate" mnemonicParsing="false" onMouseClicked="#update" text="UPDATE" />
-                        <Button fx:id="btnDelete" alignment="TOP_CENTER" mnemonicParsing="false" text="DELETE" />
-                        <Button fx:id="btnClear" mnemonicParsing="false" text="CLEAR" textAlignment="CENTER" />
+                        <Button fx:id="btnDelete" alignment="TOP_CENTER" onMouseClicked="#delete" mnemonicParsing="false" text="DELETE" />
+                        <Button fx:id="btnClear" mnemonicParsing="false" onMouseClicked="#clearForm" text="CLEAR" textAlignment="CENTER" />
                      </children>
                   </HBox>
                   <VBox layoutX="21.0" layoutY="54.0" prefHeight="386.0" prefWidth="113.0" spacing="16.0">

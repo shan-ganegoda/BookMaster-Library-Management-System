@@ -129,4 +129,23 @@ public class MemberDao {
 
         return CommonDao.modify(qry);
     }
+
+    public static String update(Member currentMember) {
+        String qry = "UPDATE member set fullname='" + currentMember.getFullname() +
+                "',code='" + currentMember.getCode() +
+                "',nic='" + currentMember.getNic() +
+                "',dob='" + currentMember.getDob() +
+                "',address='" + currentMember.getAddress() +
+                "',doregistered='" + currentMember.getDoregistered() +
+                "',gender_id='" + currentMember.getGender().getId() +
+                "',memberstatus_id='" + currentMember.getMemberstatus().getId() +
+                "',user_id='" + currentMember.getUser().getId() +
+                "' WHERE id=" + currentMember.getId();
+        return CommonDao.modify(qry);
+    }
+
+    public static String delete(Integer id) {
+        String qry = "DELETE FROM member WHERE id=" + id;
+        return CommonDao.modify(qry);
+    }
 }

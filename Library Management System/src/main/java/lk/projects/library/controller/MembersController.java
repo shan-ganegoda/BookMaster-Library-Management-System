@@ -376,6 +376,57 @@ public class MembersController implements Initializable {
         }
     }
 
+    public void update(){
+        loadFormData();
+        currentMember.setId(oldMember.getId());
+
+        String errors = getErrors();
+
+        if(errors.isEmpty()){
+            String updates = getUpdates();
+
+            if(!updates.isEmpty()){
+                Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+                a.setTitle("BookMaster");
+                a.setHeaderText("Member Module - Update");
+                a.setContentText("You have following Updates \n\n" + updates);
+
+                Optional<ButtonType> result = a.showAndWait();
+                if(result.get() == ButtonType.OK){
+                    String status = MemberService.put(currentMember);
+                    if(status.equals("Success")){
+                        loadView();
+                        clearForm();
+
+                        alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("BookMaster");
+                        alert.setHeaderText("Member Module - Update");
+                        alert.setContentText("Successfully Updated");
+                        alert.show();
+                    }else{
+                        alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("BookMaster");
+                        alert.setHeaderText("Member Module - Update");
+                        alert.setContentText("Failed to Update as \n\n" + status);
+                        alert.show();
+                    }
+                }
+            }else{
+                alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("BookMaster");
+                alert.setHeaderText("Member Module - Update");
+                alert.setContentText("Nothing To Update");
+                alert.show();
+            }
+        }else{
+            alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("BookMaster");
+            alert.setHeaderText("Member Module - Update");
+            alert.setContentText("You Have Following Errors:\n\n" + errors);
+            alert.show();
+        }
+    }
+
     public void clearForm(){
         txtFullName.clear();
         txtCode.clear();

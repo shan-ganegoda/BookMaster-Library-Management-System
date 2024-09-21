@@ -81,4 +81,28 @@ public class MemberService {
 
         return msg;
     }
+
+    public static String put(Member currentMember) {
+        String msg = "";
+        String err = "";
+
+        Member res = MemberDao.getByCode(currentMember.getCode());
+        Member rest = MemberDao.getByNic(currentMember.getNic());
+
+        if( res != null && !res.getCode().equals(currentMember.getCode()) ) err = err + "\nCode Exists";
+        if( rest != null && !rest.getNic().equals(currentMember.getNic()) ) err = err + "\nNic Exists";
+
+        if(err.isEmpty()) {
+            String status = MemberDao.update(currentMember);
+            if(status.equals("1")) {
+                msg = "Success";
+            }else{
+                msg = "Fail caused by :" + status;
+            }
+        }else{
+            msg = "Fail caused by :" + err;
+        }
+
+        return msg;
+    }
 }

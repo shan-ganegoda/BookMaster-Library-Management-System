@@ -105,4 +105,17 @@ public class MemberService {
 
         return msg;
     }
+
+    public static String delete(Member oldMember) {
+        String msg = "";
+
+        String dberror = MemberDao.delete(oldMember.getId());
+        if(dberror.equals("1")) {
+            msg = "Success";
+        }else{
+            msg = "Fail caused by :" + dberror;
+        }
+
+        return msg;
+    }
 }

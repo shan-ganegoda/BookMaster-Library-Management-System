@@ -17,6 +17,7 @@ import lk.projects.library.service.MemberStatusService;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -425,6 +426,59 @@ public class MembersController implements Initializable {
             alert.setContentText("You Have Following Errors:\n\n" + errors);
             alert.show();
         }
+    }
+
+    public void delete(){
+        alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("BookMaster");
+        alert.setHeaderText("Member Module - Delete");
+        alert.setContentText("Are you sure to Delete ?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if(result.get() == ButtonType.OK){
+            String status = MemberService.delete(oldMember);
+            if(status.equals("Success")){
+                loadView();
+                clearForm();
+                enableButtons(true,false,false);
+
+                alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("BookMaster");
+                alert.setHeaderText("Member Module");
+                alert.setContentText("Successfully Deleted");
+                alert.show();
+
+            }else{
+                alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("BookMaster");
+                alert.setHeaderText("Member Module - Delete");
+                alert.setContentText("Failed Due to :\n\n" + status);
+                alert.show();
+            }
+
+        }
+    }
+
+    public void handleSearch(){
+        String ssfullname = txtSearchFullName.getText();
+        String sscode = txtSearchCode.getText();
+        String ssnic = txtSearchNic.getText();
+
+        HashMap<String,String> params = new HashMap<>();
+        params.put("ssfullname",ssfullname);
+        params.put("sscode",sscode);
+        params.put("ssnic",ssnic);
+
+        members = FXCollections.observableList(MemberService.get(params));
+        fillTable();
+    }
+
+    public void searchClear(){
+        txtSearchNic.clear();
+        txtSearchCode.clear();
+        txtSearchFullName.clear();
+        loadView();
     }
 
     public void clearForm(){

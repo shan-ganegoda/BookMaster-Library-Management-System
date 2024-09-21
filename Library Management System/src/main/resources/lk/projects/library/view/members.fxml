@@ -1,11 +1,178 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-
-<Pane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.projects.library.controller.MembersController">
+<Pane prefHeight="648.0" prefWidth="875.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.projects.library.controller.MembersController">
    <children>
-      <Label layoutX="286.0" layoutY="192.0" text="Members" />
+      <Pane layoutX="2.0" layoutY="2.0" prefHeight="648.0" prefWidth="875.0">
+         <children>
+            <Pane layoutX="3.0" layoutY="5.0" prefHeight="648.0" prefWidth="875.0" stylesheets="@../styles/categories.css">
+               <children>
+                  <Pane fx:id="topPanel" layoutX="29.0" layoutY="14.0" prefHeight="50.0" prefWidth="817.0">
+                     <children>
+                        <Label layoutX="28.0" layoutY="10.0" text="Members" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="searchPane" layoutX="366.0" layoutY="88.0" prefHeight="200.0" prefWidth="480.0">
+                     <children>
+                        <Pane layoutY="-3.0" prefHeight="37.0" prefWidth="480.0" style="-fx-background-color: #253659; -fx-background-radius: 15 0 0 15; -fx-background-radius: 15 15 0 0;">
+                           <children>
+                              <Label layoutX="26.0" layoutY="4.0" prefHeight="30.0" prefWidth="113.0" text="Search" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                        <Label layoutX="29.0" layoutY="60.0" text="FullName">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="txtSearchFullName" layoutX="106.0" layoutY="58.0" prefHeight="25.0" prefWidth="197.0" promptText="John Doe" />
+                        <Label layoutX="29.0" layoutY="94.0" text="Code">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="txtSearchCode" layoutX="106.0" layoutY="92.0" prefHeight="25.0" prefWidth="197.0" promptText="M0000" />
+                        <HBox alignment="TOP_CENTER" layoutX="42.0" layoutY="163.0" prefHeight="37.0" prefWidth="275.0" spacing="10.0">
+                           <children>
+                              <Button fx:id="btnSearch" mnemonicParsing="false" text="Search" />
+                              <Button fx:id="btnSearchClear" mnemonicParsing="false" text="CLEAR" />
+                           </children>
+                        </HBox>
+                        <Label layoutX="29.0" layoutY="129.0" text="NIC">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="txtSearchNic" layoutX="106.0" layoutY="127.0" prefHeight="25.0" prefWidth="197.0" promptText="xxxxxxxxV" />
+                     </children>
+                  </Pane>
+                  <Pane fx:id="tablePane" layoutX="366.0" layoutY="297.0" prefHeight="336.0" prefWidth="480.0">
+                     <children>
+                        <Pane prefHeight="37.0" prefWidth="480.0" style="-fx-background-color: #253659; -fx-background-radius: 15 0 0 15; -fx-background-radius: 15 15 0 0;">
+                           <children>
+                              <Label layoutX="23.0" layoutY="4.0" prefHeight="30.0" prefWidth="113.0" text="Data View" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                        <TableView fx:id="tblMembers" layoutY="37.0" prefHeight="289.0" prefWidth="480.0">
+                           <columns>
+                              <TableColumn fx:id="idCol" prefWidth="39.20001220703125" text="#" />
+                              <TableColumn fx:id="fullNameCol" prefWidth="117.60003662109375" text="FullName" />
+                              <TableColumn fx:id="codeCol" prefWidth="93.5999755859375" text="Code" />
+                              <TableColumn fx:id="nicCol" prefWidth="122.4000244140625" text="NIC" />
+                              <TableColumn fx:id="addressCol" prefWidth="104.0" text="Address" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="formPanel" layoutX="29.0" layoutY="88.0" prefHeight="545.0" prefWidth="322.0">
+                     <children>
+                        <Pane layoutX="1.0" layoutY="-3.0" prefHeight="37.0" prefWidth="322.0" style="-fx-background-color: #253659; -fx-background-radius: 15 0 0 15; -fx-background-radius: 15 15 0 0;">
+                           <children>
+                              <Label layoutX="22.0" layoutY="4.0" prefHeight="30.0" prefWidth="113.0" text="Form" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                        <HBox alignment="TOP_CENTER" layoutX="24.0" layoutY="471.0" prefHeight="37.0" prefWidth="275.0" spacing="10.0">
+                           <children>
+                              <Button fx:id="btnAdd" mnemonicParsing="false" text="ADD" />
+                              <Button fx:id="btnUpdate" mnemonicParsing="false" text="UPDATE" />
+                              <Button fx:id="btnDelete" alignment="TOP_CENTER" mnemonicParsing="false" text="DELETE" />
+                              <Button fx:id="btnClear" mnemonicParsing="false" text="CLEAR" textAlignment="CENTER" />
+                           </children>
+                        </HBox>
+                        <VBox layoutX="21.0" layoutY="54.0" prefHeight="386.0" prefWidth="113.0" spacing="16.0">
+                           <children>
+                              <Label text="Fullname">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Code">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label text="NIC">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Gender">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Date of Birth">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Do Registred">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Member Status">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label text="User">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Address">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox layoutX="119.0" layoutY="53.0" prefHeight="386.0" prefWidth="183.0" spacing="10.0">
+                           <children>
+                              <TextField fx:id="txtFullName" prefHeight="25.0" prefWidth="197.0" promptText="John Doe" />
+                              <TextField fx:id="txtCode" prefHeight="25.0" prefWidth="197.0" promptText="M0000" />
+                              <TextField fx:id="txtNic" prefHeight="25.0" prefWidth="197.0" promptText="xxxxxxxxxV" />
+                              <ComboBox fx:id="cmbGender" prefHeight="25.0" prefWidth="197.0" promptText="Select Gender" />
+                              <DatePicker fx:id="txtDob" prefHeight="25.0" prefWidth="197.0" promptText="2024-01-01" />
+                              <DatePicker fx:id="txtDoRegistered" prefHeight="25.0" prefWidth="197.0" promptText="2024-01-01" />
+                              <ComboBox fx:id="cmbMemberStatus" prefHeight="25.0" prefWidth="197.0" promptText="Select Member Status" />
+                              <ComboBox fx:id="cmbUser" prefHeight="25.0" prefWidth="197.0" promptText="Select User" />
+                              <TextArea fx:id="txtAddress" prefHeight="200.0" prefWidth="200.0" promptText="York Street" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </Pane>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
    </children>
 </Pane>

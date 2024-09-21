@@ -50,8 +50,8 @@
                   <TextField fx:id="txtSearchCode" layoutX="106.0" layoutY="92.0" prefHeight="25.0" prefWidth="197.0" promptText="B0000" />
                   <HBox alignment="TOP_CENTER" layoutX="42.0" layoutY="163.0" prefHeight="37.0" prefWidth="275.0" spacing="10.0">
                      <children>
-                        <Button fx:id="btnSearch" onMouseClicked="#handleSearch" mnemonicParsing="false" text="Search" />
-                        <Button fx:id="btnSearchClear" onMouseClicked="#searchClear" mnemonicParsing="false" text="CLEAR" />
+                        <Button fx:id="btnSearch" mnemonicParsing="false" onMouseClicked="#handleSearch" text="Search" />
+                        <Button fx:id="btnSearchClear" mnemonicParsing="false" onMouseClicked="#searchClear" text="CLEAR" />
                      </children>
                   </HBox>
                   <Label layoutX="29.0" layoutY="129.0" text="Author">

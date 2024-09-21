@@ -332,9 +332,6 @@ public class BooksController implements Initializable {
             updates += "\nUser Updated ";
         }
 
-        System.out.println("Current Book - "+currentBook );
-        System.out.println("Old Book - "+oldBook );
-
         return updates;
     }
 

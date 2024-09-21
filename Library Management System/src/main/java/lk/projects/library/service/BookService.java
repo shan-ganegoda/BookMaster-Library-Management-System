@@ -1,9 +1,7 @@
 package lk.projects.library.service;
 
 import lk.projects.library.dao.BookDao;
-import lk.projects.library.dao.CategoryDao;
 import lk.projects.library.entity.Books;
-import lk.projects.library.entity.Category;
 
 import java.util.ArrayList;
 import java.util.HashMap;

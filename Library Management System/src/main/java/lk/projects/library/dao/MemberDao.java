@@ -1,5 +1,6 @@
 package lk.projects.library.dao;
 
+import lk.projects.library.entity.Books;
 import lk.projects.library.entity.Member;
 
 import java.sql.ResultSet;
@@ -69,4 +70,63 @@ public class MemberDao {
     }
 
 
+    public static List<Member> getAllByFullName(String ssfullname) {
+        String qry = "select * from member where fullname like '"+ssfullname+"%'";
+        return get(qry);
+    }
+
+    public static List<Member> getAllByCode(String sscode) {
+        String qry = "select * from member where code = '"+sscode+"'";
+        return get(qry);
+    }
+
+    public static List<Member> getAllByNic(String ssnic) {
+        String qry = "select * from member where nic = '"+ssnic+"'";
+        return get(qry);
+    }
+
+    public static List<Member> getByFullNameAndCode(String ssfullname, String sscode) {
+        String qry = "select * from member where fullname Like '"+ssfullname+"%' and code = '"+sscode+"'";
+        return get(qry);
+    }
+
+    public static List<Member> getByFullNameAndNic(String ssfullname, String ssnic) {
+        String qry = "select * from member where fullname like '" + ssfullname + "%' and code = '"+ssnic +"'";
+        return get(qry);
+    }
+
+    public static List<Member> getByCodeAndNic(String sscode, String ssnic) {
+        String qry = "select * from member where code ='"+sscode+"' and nic = '"+ssnic +"'";
+        return get(qry);
+    }
+
+    public static List<Member> getAllByFullNameAndCodeAndNic(String ssfullname, String sscode, String ssnic) {
+        String qry = "select * from member where fullname like '" + ssfullname  + "%' and code = '"+ssnic +"'and nic = '"+ssnic +"'";
+        return get(qry);
+    }
+
+    public static Member getByCode(String code) {
+        String qry = "Select * from member where code = '"+code+"'";
+        return getBy(qry);
+    }
+
+    public static Member getByNic(String nic) {
+        String qry = "Select * from member where nic = '"+nic+"'";
+        return getBy(qry);
+    }
+
+    public static String save(Member currentMember) {
+        String qry = "INSERT INTO member (fullname,code,dob,nic,address,doregistered,gender_id,memberstatus_id,user_id) VALUES('" +
+                currentMember.getFullname() +"','" +
+                currentMember.getCode()+"','" +
+                currentMember.getDob()+"','" +
+                currentMember.getNic()+"','" +
+                currentMember.getAddress()+"','" +
+                currentMember.getDoregistered()+"','" +
+                currentMember.getGender().getId()+"','" +
+                currentMember.getMemberstatus().getId()+"','" +
+                currentMember.getUser().getId() +"')";
+
+        return CommonDao.modify(qry);
+    }
 }

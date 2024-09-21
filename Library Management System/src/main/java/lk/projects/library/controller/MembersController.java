@@ -10,11 +10,15 @@ import javafx.util.StringConverter;
 import lk.projects.library.dao.MemberDao;
 import lk.projects.library.dao.UserDao;
 import lk.projects.library.entity.*;
+import lk.projects.library.service.BookService;
 import lk.projects.library.service.GenderService;
+import lk.projects.library.service.MemberService;
 import lk.projects.library.service.MemberStatusService;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MembersController implements Initializable {
@@ -236,5 +240,153 @@ public class MembersController implements Initializable {
 
         enableButtons(false,true,true);
 
+    }
+
+    public String getErrors(){
+        String errors = "";
+
+        if(currentMember.getFullname() == null){
+            errors += "\nInvalid Full Name";
+        }
+        if(currentMember.getCode() == null){
+            errors += "\nInvalid Code";
+        }
+        if(currentMember.getDob() == null){
+            errors += "\nInvalid Date of Birth";
+        }
+        if(currentMember.getNic() == null){
+            errors += "\nInvalid Nic";
+        }
+        if(currentMember.getAddress() == null){
+            errors += "\nInvalid Address";
+        }
+        if(currentMember.getDoregistered() == null){
+            errors += "\nInvalid Date of Registered";
+        }
+        if(currentMember.getGender() == null){
+            errors += "\nInvalid Gender";
+        }
+        if(currentMember.getMemberstatus() == null){
+            errors += "\nInvalid MemberStatus";
+        }
+        if(currentMember.getUser() == null){
+            errors += "\nInvalid User";
+        }
+
+        return errors;
+    }
+
+    public String getUpdates(){
+        String updates = "";
+
+        if(!currentMember.getFullname().equals(oldMember.getFullname())){
+            updates += "\nFullName Updated ";
+        }
+        if(!currentMember.getCode().equals(oldMember.getCode())){
+            updates += "\nCode Updated ";
+        }
+        if(!currentMember.getDob().equals(oldMember.getDob())){
+            updates += "\nDate of Birth Updated ";
+        }
+        if(!currentMember.getNic().equals(oldMember.getNic())){
+            updates += "\nNic Updated ";
+        }
+        if(!currentMember.getAddress().equals(oldMember.getAddress())){
+            updates += "\nAddress Updated ";
+        }
+        if(!currentMember.getDoregistered().equals(oldMember.getDoregistered())){
+            updates += "\nDate of Registered Updated ";
+        }
+        if(!currentMember.getGender().getId().equals(oldMember.getGender().getId())){
+            updates += "\nCategory Updated ";
+        }
+        if(!currentMember.getMemberstatus().getId().equals(oldMember.getMemberstatus().getId())){
+            updates += "\nLanguage Updated ";
+        }
+        if(!currentMember.getUser().getId().equals(oldMember.getUser().getId())){
+            updates += "\nUser Updated ";
+        }
+
+        return updates;
+    }
+
+    public void loadFormData(){
+        String fullname = txtFullName.getText();;
+        String code = txtCode.getText();
+        LocalDate dob = txtDob.getValue();
+        String nic = txtNic.getText();
+        String address = txtAddress.getText();
+        LocalDate doregistered = txtDoRegistered.getValue();
+        Gender selectedGender = cmbGender.getSelectionModel().getSelectedItem();
+        MemberStatus selectedMemberStatus = cmbMemberStatus.getSelectionModel().getSelectedItem();
+        User selectedUser = cmbUser.getSelectionModel().getSelectedItem();
+
+        currentMember = Member.builder()
+                .fullname(fullname)
+                .code(code)
+                .dob(dob)
+                .nic(nic)
+                .address(address)
+                .doregistered(doregistered)
+                .gender(selectedGender)
+                .memberstatus(selectedMemberStatus)
+                .user(selectedUser)
+                .build();
+    }
+
+    public void add(){
+        loadFormData();
+
+        String errors = getErrors();
+        alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("BookMaster");
+        alert.setHeaderText("Member Module");
+
+        if(errors.isEmpty()){
+            String confmsg = "Are you sure to Proceed?\n";
+            alert.setContentText(confmsg);
+
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if(result.get() == ButtonType.OK){
+                String status = MemberService.post(currentMember);
+                if(status.equals("Success")){
+                    loadView();
+                    clearForm();
+
+                    alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("BookMaster");
+                    alert.setHeaderText("Member Module");
+                    alert.setContentText("Successfully Saved");
+                    alert.show();
+                }else{
+                    alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("BookMaster");
+                    alert.setHeaderText("Member Module");
+                    alert.setContentText("Failed to save as \n\n" + status);
+                    alert.show();
+                }
+            }
+        }else{
+            alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("BookMaster");
+            alert.setHeaderText("Member Module");
+            alert.setContentText("You have Errors:" + errors);
+            alert.show();
+        }
+    }
+
+    public void clearForm(){
+        txtFullName.clear();
+        txtCode.clear();
+        txtDob.setValue(null);
+        txtDoRegistered.setValue(null);
+        txtNic.clear();
+        txtAddress.clear();
+        cmbGender.setValue(null);
+        cmbMemberStatus.setValue(null);
+        cmbUser.setValue(null);
+
+        enableButtons(true,false,false);
     }
 }

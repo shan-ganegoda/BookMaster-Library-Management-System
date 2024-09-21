@@ -102,8 +102,6 @@ public class BookDao {
                 books.getLanguage().getId()+"','" +
                 books.getUser().getId() +"')";
 
-        System.out.println(qry);
-
         return CommonDao.modify(qry);
     }
 

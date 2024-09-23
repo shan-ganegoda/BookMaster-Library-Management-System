@@ -87,6 +87,14 @@ public class MainWindowController implements Initializable {
         loadFXML("/lk/projects/library/view/borrowings.fxml");
     }
 
+    public void fine(ActionEvent actionEvent) throws IOException{
+        loadFXML("/lk/projects/library/view/fine.fxml");
+    }
+
+    public void users(ActionEvent actionEvent) throws IOException{
+        loadFXML("/lk/projects/library/view/user.fxml");
+    }
+
     private void loadFXML(String fxmlFile) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
         Parent fxml = loader.load();

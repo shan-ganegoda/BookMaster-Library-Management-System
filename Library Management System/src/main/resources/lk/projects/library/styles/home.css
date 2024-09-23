@@ -1,0 +1,11 @@
+#backgroundPane{
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 15;
+    -fx-background-radius: 15;
+}
+
+.homecard{
+    -fx-background-color: #abc0ee;
+    -fx-border-radius: 15;
+    -fx-background-radius: 15;
+}

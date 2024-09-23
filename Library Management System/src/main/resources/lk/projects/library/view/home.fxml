@@ -1,11 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-
-<Pane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.projects.library.controller.HomeController">
+<Pane prefHeight="648.0" prefWidth="875.0" stylesheets="@../styles/home.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.projects.library.controller.HomeController">
    <children>
-      <Label layoutX="286.0" layoutY="192.0" text="Home" />
+      <Pane fx:id="backgroundPane" layoutX="14.0" layoutY="14.0" prefHeight="620.0" prefWidth="847.0">
+         <children>
+            <Pane fx:id="homecard1" layoutX="34.0" layoutY="59.0" prefHeight="108.0" prefWidth="250.0" styleClass="homecard">
+               <children>
+                  <Label layoutX="14.0" layoutY="14.0" text="Total Member Count" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="14.0" layoutY="35.0" text="11265" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="33.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="43.0" fitWidth="48.0" layoutX="181.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../images/Icons/group.png" />
+                     </image>
+                  </ImageView>
+               </children></Pane>
+            <Pane fx:id="homecard11" layoutX="299.0" layoutY="59.0" prefHeight="108.0" prefWidth="250.0" styleClass="homecard">
+               <children>
+                  <Label layoutX="14.0" layoutY="14.0" text="Total Books Count" textFill="#fcfcfc">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="14.0" layoutY="35.0" text="11265" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="33.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="43.0" fitWidth="48.0" layoutX="193.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../images/Icons/open-book.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane fx:id="homecard111" layoutX="564.0" layoutY="59.0" prefHeight="108.0" prefWidth="250.0" styleClass="homecard">
+               <children>
+                  <Label layoutX="14.0" layoutY="14.0" text="Total Category Count" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="14.0" layoutY="35.0" text="11265" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="33.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="43.0" fitWidth="48.0" layoutX="193.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../images/Icons/categories.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Label layoutX="35.0" layoutY="14.0" text="Dashboard">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="407.0" fitWidth="421.0" layoutX="422.0" layoutY="192.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../images/Book%20lover.gif" />
+               </image>
+            </ImageView>
+            <Label layoutX="474.0" layoutY="560.0" prefHeight="17.0" prefWidth="369.0" text="At BookMaster, we are committed to making the management " />
+            <Label layoutX="474.0" layoutY="575.0" prefHeight="17.0" prefWidth="369.0" text="of books, borrowers, and records efficient and easy. " />
+         </children></Pane>
    </children>
 </Pane>

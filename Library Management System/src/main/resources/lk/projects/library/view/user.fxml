@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="648.0" prefWidth="875.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.projects.library.controller.UserController">
+   <children>
+      <Pane layoutX="10.0" layoutY="10.0" prefHeight="648.0" prefWidth="875.0">
+         <children>
+            <Pane layoutX="-14.0" prefHeight="648.0" prefWidth="875.0" stylesheets="@../styles/categories.css">
+               <children>
+                  <Pane fx:id="topPanel" layoutX="29.0" layoutY="14.0" prefHeight="50.0" prefWidth="817.0">
+                     <children>
+                        <Label layoutX="28.0" layoutY="10.0" text="Users" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="searchPane" layoutX="366.0" layoutY="88.0" prefHeight="200.0" prefWidth="480.0">
+                     <children>
+                        <Pane layoutY="-3.0" prefHeight="37.0" prefWidth="480.0" style="-fx-background-color: #253659; -fx-background-radius: 15 0 0 15; -fx-background-radius: 15 15 0 0;">
+                           <children>
+                              <Label layoutX="26.0" layoutY="4.0" prefHeight="30.0" prefWidth="113.0" text="Search" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                        <Label layoutX="29.0" layoutY="60.0" text="Full Name">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="txtSearchFullName" layoutX="106.0" layoutY="58.0" prefHeight="25.0" prefWidth="197.0" promptText="John Doe" />
+                        <Label layoutX="29.0" layoutY="94.0" text="Username">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="txtSearchUsername" layoutX="106.0" layoutY="92.0" prefHeight="25.0" prefWidth="197.0" promptText="John123" />
+                        <HBox alignment="TOP_CENTER" layoutX="42.0" layoutY="163.0" prefHeight="37.0" prefWidth="275.0" spacing="10.0">
+                           <children>
+                              <Button fx:id="btnSearch" mnemonicParsing="false" text="Search" />
+                              <Button fx:id="btnSearchClear" mnemonicParsing="false" text="CLEAR" />
+                           </children>
+                        </HBox>
+                        <Label layoutX="29.0" layoutY="129.0" text="Role">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="cmbSearchRole" layoutX="106.0" layoutY="127.0" prefHeight="25.0" prefWidth="197.0" promptText="Select Role" />
+                     </children>
+                  </Pane>
+                  <Pane fx:id="tablePane" layoutX="366.0" layoutY="297.0" prefHeight="336.0" prefWidth="480.0">
+                     <children>
+                        <Pane prefHeight="37.0" prefWidth="480.0" style="-fx-background-color: #253659; -fx-background-radius: 15 0 0 15; -fx-background-radius: 15 15 0 0;">
+                           <children>
+                              <Label layoutX="23.0" layoutY="4.0" prefHeight="30.0" prefWidth="113.0" text="Data View" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                        <TableView fx:id="tblUsers" layoutY="37.0" prefHeight="289.0" prefWidth="480.0">
+                           <columns>
+                              <TableColumn fx:id="idCol" prefWidth="39.20001220703125" text="#" />
+                              <TableColumn fx:id="usernameCol" prefWidth="131.19998168945312" text="Username" />
+                              <TableColumn fx:id="fullNameCol" prefWidth="136.79998779296875" text="Full Name" />
+                              <TableColumn fx:id="roleCol" prefWidth="92.800048828125" text="Role" />
+                              <TableColumn fx:id="statusCol" prefWidth="79.199951171875" text="Status" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="formPanel" layoutX="29.0" layoutY="88.0" prefHeight="545.0" prefWidth="322.0">
+                     <children>
+                        <Pane layoutX="1.0" layoutY="-3.0" prefHeight="37.0" prefWidth="322.0" style="-fx-background-color: #253659; -fx-background-radius: 15 0 0 15; -fx-background-radius: 15 15 0 0;">
+                           <children>
+                              <Label layoutX="22.0" layoutY="4.0" prefHeight="30.0" prefWidth="113.0" text="Form" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                        <HBox alignment="TOP_CENTER" layoutX="25.0" layoutY="317.0" prefHeight="37.0" prefWidth="275.0" spacing="10.0">
+                           <children>
+                              <Button fx:id="btnAdd" mnemonicParsing="false" text="ADD" />
+                              <Button fx:id="btnUpdate" mnemonicParsing="false" text="UPDATE" />
+                              <Button fx:id="btnDelete" alignment="TOP_CENTER" mnemonicParsing="false" text="DELETE" />
+                              <Button fx:id="btnClear" mnemonicParsing="false" text="CLEAR" textAlignment="CENTER" />
+                           </children>
+                        </HBox>
+                        <VBox layoutX="16.0" layoutY="56.0" prefHeight="253.0" prefWidth="113.0" spacing="16.0">
+                           <children>
+                              <Label text="Full Name">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Username">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Password">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Confirm Password" />
+                              <Label text="User Status">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Role">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Do Registered">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox layoutX="119.0" layoutY="53.0" prefHeight="253.0" prefWidth="183.0" spacing="10.0">
+                           <children>
+                              <TextField fx:id="txtFullName" prefHeight="25.0" prefWidth="197.0" promptText="John Doe" />
+                              <TextField fx:id="txtUsername" prefHeight="25.0" prefWidth="197.0" promptText="John123" />
+                              <PasswordField fx:id="txtPassword" promptText="P@$$w0rd" />
+                              <PasswordField fx:id="txtConfPassword" promptText="P@$$w0rd" />
+                              <ComboBox fx:id="cmbUserStatus" prefHeight="25.0" prefWidth="197.0" promptText="Select UserStatus" />
+                              <ComboBox fx:id="cmbRole" prefHeight="25.0" prefWidth="197.0" promptText="Select Role" />
+                              <DatePicker fx:id="txtDoRegistered" prefHeight="25.0" prefWidth="197.0" promptText="2024-01-01" />
+                           </children>
+                        </VBox>
+                        <ImageView fitHeight="185.0" fitWidth="214.0" layoutX="69.0" layoutY="354.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../images/User%20research.gif" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

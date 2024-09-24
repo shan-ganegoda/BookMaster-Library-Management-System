@@ -37,7 +37,7 @@ public class UserStatusDao {
 
         try {
 
-            String qry = "Select * from role";
+            String qry = "Select * from userstatus";
             ResultSet result = CommonDao.get(qry);
 
             while(result.next()){

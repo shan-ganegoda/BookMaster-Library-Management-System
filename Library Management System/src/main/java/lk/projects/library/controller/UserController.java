@@ -10,9 +10,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.StringConverter;
 import lk.projects.library.dao.*;
 import lk.projects.library.entity.*;
+import lk.projects.library.service.BookService;
 import lk.projects.library.service.LanguageService;
+import lk.projects.library.service.UserService;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class UserController implements Initializable {
@@ -156,8 +161,171 @@ public class UserController implements Initializable {
         int row = tblUsers.getSelectionModel().getSelectedIndex();
         if (row > -1) {
             User user = users.get(row);
-            //fillForm(book);
-            System.out.println(user);
+            fillForm(user);
         }
+    }
+
+    public void fillForm(User user) {
+
+        oldUser = user;
+
+        currentUser = User.builder()
+                .id(user.getId())
+                .fullname(user.getFullname())
+                .username(user.getUsername())
+                .password(user.getPassword())
+                .userstatus(user.getUserstatus())
+                .role(user.getRole())
+                .doregistered(user.getDoregistered())
+                .build();
+
+
+        txtFullName.setText(user.getFullname());;
+        txtUsername.setText(user.getUsername());
+        txtPassword.setText(user.getPassword());
+        txtConfPassword.setText(user.getPassword());
+        txtDoRegistered.setValue(user.getDoregistered());
+
+        for (Role role : roles) {
+            if (Objects.equals(role.getId(), user.getRole().getId())) {
+                cmbRole.setValue(role);
+                break;
+            }
+        }
+
+        for (UserStatus us : userStatuses) {
+            if (Objects.equals(us.getId(), user.getUserstatus().getId())) {
+                cmbUserStatus.setValue(us);
+                break;
+            }
+        }
+
+        enableButtons(false,true,true);
+
+    }
+
+    public String getErrors(){
+        String errors = "";
+
+        if(currentUser.getFullname() == null){
+            errors += "\nInvalid Full Name";
+        }
+        if(currentUser.getUsername() == null){
+            errors += "\nInvalid Username";
+        }
+        if(currentUser.getPassword() == null){
+            errors += "\nInvalid Password";
+        }
+        if(currentUser.getRole() == null){
+            errors += "\nInvalid Role";
+        }
+        if(currentUser.getDoregistered() == null){
+            errors += "\nInvalid Date of Registered";
+        }
+        if(currentUser.getUserstatus() == null){
+            errors += "\nInvalid User Status";
+        }
+        if(!Objects.equals(txtPassword.getText(), txtConfPassword.getText())){
+            errors += "\nPasswords don't match";
+        }
+
+        return errors;
+    }
+
+    public String getUpdates(){
+        String updates = "";
+
+        if(!currentUser.getFullname().equals(oldUser.getFullname())){
+            updates += "\nFull Name Updated ";
+        }
+        if(!currentUser.getUsername().equals(oldUser.getUsername())){
+            updates += "\nUsername Updated ";
+        }
+        if(!currentUser.getPassword().equals(oldUser.getPassword())){
+            updates += "\nPassword Updated ";
+        }
+        if(!currentUser.getDoregistered().equals(oldUser.getDoregistered())){
+            updates += "\nDate of Registered Updated ";
+        }
+        if(!currentUser.getUserstatus().getId().equals(oldUser.getUserstatus().getId())){
+            updates += "\nUser Status Updated ";
+        }
+        if(!currentUser.getRole().getId().equals(oldUser.getRole().getId())){
+            updates += "\nRole Updated ";
+        }
+
+        return updates;
+    }
+
+    public void loadFormData(){
+        String username = txtUsername.getText();;
+        String fullname = txtFullName.getText();
+        String password = txtPassword.getText();
+        LocalDate doregistered = txtDoRegistered.getValue();
+        UserStatus selectedUserStatus = cmbUserStatus.getSelectionModel().getSelectedItem();
+        Role selectedRole = cmbRole.getSelectionModel().getSelectedItem();
+
+        currentUser = User.builder()
+                .fullname(fullname)
+                .username(username)
+                .password(password)
+                .doregistered(doregistered)
+                .role(selectedRole)
+                .userstatus(selectedUserStatus)
+                .build();
+    }
+
+    public void add(){
+        loadFormData();
+
+        String errors = getErrors();
+        alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("BookMaster");
+        alert.setHeaderText("Users Module");
+
+        if(errors.isEmpty()){
+            String confmsg = "Are you sure to Proceed?\n";
+            alert.setContentText(confmsg);
+
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if(result.get() == ButtonType.OK){
+                String status = UserService.post(currentUser);
+                if(status.equals("Success")){
+                    loadView();
+                    clearForm();
+
+                    alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("BookMaster");
+                    alert.setHeaderText("Users Module");
+                    alert.setContentText("Successfully Saved");
+                    alert.show();
+                }else{
+                    alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("BookMaster");
+                    alert.setHeaderText("Users Module");
+                    alert.setContentText("Failed to save as \n\n" + status);
+                    alert.show();
+                }
+            }
+        }else{
+            alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("BookMaster");
+            alert.setHeaderText("Users Module");
+            alert.setContentText("You have Errors:" + errors);
+            alert.show();
+        }
+    }
+
+    public void clearForm(){
+        txtUsername.clear();
+        txtFullName.clear();
+        txtPassword.clear();
+        txtConfPassword.clear();
+        txtDoRegistered.setValue(null);
+        cmbRole.setValue(null);
+        cmbUserStatus.setValue(null);
+
+        enableButtons(true,false,false);
     }
 }

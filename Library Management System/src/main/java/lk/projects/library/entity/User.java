@@ -2,6 +2,8 @@ package lk.projects.library.entity;
 
 import lombok.*;
 
+import java.time.LocalDate;
+
 
 @Getter
 @Setter
@@ -16,4 +18,5 @@ public class User {
     private String fullname;
     private Role role;
     private UserStatus userstatus;
+    private LocalDate doregistered;
 }

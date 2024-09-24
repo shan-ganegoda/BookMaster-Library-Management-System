@@ -399,7 +399,7 @@ public class BooksController implements Initializable {
         }else{
             alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("BookMaster");
-            alert.setHeaderText("Category Module");
+            alert.setHeaderText("Books Module");
             alert.setContentText("You have Errors:" + errors);
             alert.show();
         }

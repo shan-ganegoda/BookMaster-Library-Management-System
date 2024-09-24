@@ -103,7 +103,7 @@
                         </Pane>
                         <HBox alignment="TOP_CENTER" layoutX="25.0" layoutY="317.0" prefHeight="37.0" prefWidth="275.0" spacing="10.0">
                            <children>
-                              <Button fx:id="btnAdd" mnemonicParsing="false" text="ADD" />
+                              <Button fx:id="btnAdd" onMouseClicked="#add" mnemonicParsing="false" text="ADD" />
                               <Button fx:id="btnUpdate" mnemonicParsing="false" text="UPDATE" />
                               <Button fx:id="btnDelete" alignment="TOP_CENTER" mnemonicParsing="false" text="DELETE" />
                               <Button fx:id="btnClear" mnemonicParsing="false" text="CLEAR" textAlignment="CENTER" />

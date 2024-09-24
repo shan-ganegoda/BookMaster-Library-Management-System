@@ -17,7 +17,42 @@ public class UserService {
         if(params.isEmpty()){
             users = UserDao.getAll();
         }else{
-            users = null;
+
+            String ssfullname = params.get("ssfullname");
+            String ssusername = params.get("ssusername");
+            String ssrole = params.get("ssrole");
+
+            if(ssfullname.isEmpty() && ssusername.isEmpty() && ssrole.isEmpty()){
+                users = UserDao.getAll();
+            }
+
+            if(!ssfullname.isEmpty() && ssusername.isEmpty() && ssrole.isEmpty()){
+                users = UserDao.getByFullName(ssfullname);
+            }
+
+            if(ssfullname.isEmpty() && !ssusername.isEmpty() && ssrole.isEmpty()){
+                users = UserDao.getAllByUsername(ssusername);
+            }
+
+            if(ssfullname.isEmpty() && ssusername.isEmpty() && !ssrole.isEmpty()){
+                users = UserDao.getAllByRole(Integer.parseInt(ssrole));
+            }
+
+            if(!ssfullname.isEmpty() && !ssusername.isEmpty() && ssrole.isEmpty()){
+                users = UserDao.getByFullNameAndUsername(ssfullname,ssusername);
+            }
+
+            if(!ssfullname.isEmpty() && ssusername.isEmpty() && !ssrole.isEmpty()){
+                users = UserDao.getByFullNameAndRole(ssfullname,Integer.parseInt(ssrole));
+            }
+
+            if(ssfullname.isEmpty() && !ssusername.isEmpty() && !ssrole.isEmpty()){
+                users = UserDao.getByUsernameAndRole(ssusername,Integer.parseInt(ssrole));
+            }
+
+            if(!ssfullname.isEmpty() && !ssusername.isEmpty() && !ssrole.isEmpty()){
+                users = UserDao.getByFullNameAndUsernameAndRole(ssfullname,ssusername,Integer.parseInt(ssrole));
+            }
         }
 
         return users;

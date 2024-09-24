@@ -98,4 +98,39 @@ public class UserDao {
         String qry = "DELETE FROM user WHERE id=" + id;
         return CommonDao.modify(qry);
     }
+
+    public static List<User> getByFullName(String ssfullname) {
+        String qry = "SELECT * FROM user where fullname like '" + ssfullname + "%'";
+        return get(qry);
+    }
+
+    public static List<User> getAllByUsername(String ssusername) {
+        String qry = "SELECT * FROM user where username ='" + ssusername + "'";
+        return get(qry);
+    }
+
+    public static List<User> getAllByRole(int i) {
+        String qry = "SELECT * FROM user where role_id = " + i;
+        return get(qry);
+    }
+
+    public static List<User> getByFullNameAndUsername(String ssfullname, String ssusername) {
+        String qry = "SELECT * FROM user where fullname like '" + ssfullname + "%' and username ='" + ssusername + "'";
+        return get(qry);
+    }
+
+    public static List<User> getByFullNameAndRole(String ssfullname, int i) {
+        String qry = "SELECT * FROM user where fullname like '" + ssfullname + "%' and userrole_id = " + i;
+        return get(qry);
+    }
+
+    public static List<User> getByUsernameAndRole(String ssusername, int i) {
+        String qry = "SELECT * FROM user where username = '" + ssusername + "' and userrole_id = " + i;
+        return get(qry);
+    }
+
+    public static List<User> getByFullNameAndUsernameAndRole(String ssfullname, String ssusername, int i) {
+        String qry = "SELECT * FROM user where fullname like '" + ssfullname + "%' and username ='" + ssusername + "' and userrole_id = " + i;
+        return get(qry);
+    }
 }

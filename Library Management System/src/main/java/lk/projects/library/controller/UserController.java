@@ -16,6 +16,7 @@ import lk.projects.library.service.UserService;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -366,6 +367,67 @@ public class UserController implements Initializable {
             alert.setContentText("You Have Following Errors:\n\n" + errors);
             alert.show();
         }
+    }
+
+    public void delete(){
+        alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("BookMaster");
+        alert.setHeaderText("Users Module - Delete");
+        alert.setContentText("Are you sure to Delete ?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if(result.get() == ButtonType.OK){
+            String status = UserService.delete(oldUser);
+            if(status.equals("Success")){
+                loadView();
+                clearForm();
+                enableButtons(true,false,false);
+
+                alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("BookMaster");
+                alert.setHeaderText("Users Module");
+                alert.setContentText("User Successfully Deleted");
+                alert.show();
+
+            }else{
+                alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("BookMaster");
+                alert.setHeaderText("Users Module - Delete");
+                alert.setContentText("Failed Due to :\n\n" + status);
+                alert.show();
+            }
+
+        }
+    }
+
+    public void handleSearch(){
+        String ssfullname = txtSearchFullName.getText();
+        String ssusername = txtSearchUsername.getText();
+        String ssrole = "";
+
+        try{
+            Role role = cmbSearchRole.getSelectionModel().getSelectedItem();
+            ssrole = role.getId().toString();
+        }catch(NullPointerException e){
+            ssrole = "";
+        }
+
+        HashMap<String,String> params = new HashMap<>();
+        params.put("ssfullname",ssfullname);
+        params.put("ssusername",ssusername);
+        params.put("ssrole",ssrole);
+
+
+        users = FXCollections.observableList(UserService.get(params));
+        fillTable();
+    }
+
+    public void searchClear(){
+        txtSearchFullName.clear();
+        txtSearchUsername.clear();
+        cmbSearchRole.setValue(null);
+        loadView();
     }
 
     public void clearForm(){

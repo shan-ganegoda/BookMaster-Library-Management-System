@@ -8,7 +8,7 @@ public class CommonDao {
 
     public static ResultSet get(String qry){
         try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bookmaster","root","1234");
+            Connection conn = DatabaseCon.getConnection();
             Statement stm = conn.createStatement();
             result = stm.executeQuery(qry);
         } catch (SQLException e) {
@@ -22,8 +22,7 @@ public class CommonDao {
         String msg = "0";
 
         try {
-
-            Connection dbcon = DriverManager.getConnection("jdbc:mysql://localhost:3306/bookmaster","root","1234");
+            Connection dbcon = DatabaseCon.getConnection();
             Statement stm = dbcon.createStatement();
             int rows = stm.executeUpdate(qry);
             if(rows!=0) msg="1";

@@ -100,4 +100,39 @@ public class BorrowingsDao {
         String qry = "DELETE FROM borrowings WHERE id=" + id;
         return CommonDao.modify(qry);
     }
+
+    public static List<Borrowings> getAllByMember(Integer ssmember) {
+        String qry = "SELECT * FROM borrowings where member_id =" + ssmember;
+        return get(qry);
+    }
+
+    public static List<Borrowings> getAllByCode(String sscode) {
+        String qry = "SELECT * FROM borrowings where code = '" + sscode + "'";
+        return get(qry);
+    }
+
+    public static List<Borrowings> getAllByBook(Integer ssbook) {
+        String qry = "SELECT * FROM borrowings where books_id =" + ssbook;
+        return get(qry);
+    }
+
+    public static List<Borrowings> getByMemberAndCode(Integer ssmember, String sscode) {
+        String qry = "SELECT * FROM borrowings where code = '" + sscode + "' and member_id =" + ssmember;
+        return get(qry);
+    }
+
+    public static List<Borrowings> getByMemberAndBook(Integer ssmember, Integer ssbook) {
+        String qry = "SELECT * FROM borrowings where member_id = " + ssmember + " and books_id =" + ssbook;
+        return get(qry);
+    }
+
+    public static List<Borrowings> getByCodeAndBook(String sscode, Integer ssbook) {
+        String qry = "SELECT * FROM borrowings where code = '" + sscode + "' and books_id =" + ssbook;
+        return get(qry);
+    }
+
+    public static List<Borrowings> getAllByMemberAndCodeAndBook(Integer ssmember, String sscode, Integer ssbook) {
+        String qry = "SELECT * FROM borrowings where code = '" + sscode + "' and member_id = " + ssmember + " and books_id =" + ssbook;
+        return get(qry);
+    }
 }

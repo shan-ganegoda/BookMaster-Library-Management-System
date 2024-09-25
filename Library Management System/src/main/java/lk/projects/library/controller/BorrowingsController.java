@@ -16,6 +16,7 @@ import lk.projects.library.service.LanguageService;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -25,9 +26,9 @@ public class BorrowingsController implements Initializable {
     @FXML
     private TextField txtSearchCode;
     @FXML
-    private TextField txtSearchMemberCode;
+    private ComboBox<Member> cmbSearchMember;
     @FXML
-    private TextField txtSearchBookCode;
+    private ComboBox<Books> cmbSearchBook;
     @FXML
     private TableView<Borrowings> tblBorrowings;
     @FXML
@@ -101,6 +102,22 @@ public class BorrowingsController implements Initializable {
             }
         });
 
+        // Set converter to display only the name in the ComboBox
+        cmbSearchBook.setConverter(new StringConverter<Books>() {
+            @Override
+            public String toString(Books book) {
+                return book != null ? book.getTitle() : "";
+            }
+
+            @Override
+            public Books fromString(String string) {
+                return cmbSearchBook.getItems().stream()
+                        .filter(book -> book.getTitle().equals(string))
+                        .findFirst()
+                        .orElse(null);
+            }
+        });
+
         // Set converter to display only the name in the ComboBox in cmbLanguage
         cmbMember.setConverter(new StringConverter<Member>() {
             @Override
@@ -111,6 +128,22 @@ public class BorrowingsController implements Initializable {
             @Override
             public Member fromString(String string) {
                 return cmbMember.getItems().stream()
+                        .filter(member -> member.getFullname().equals(string))
+                        .findFirst()
+                        .orElse(null);
+            }
+        });
+
+        // Set converter to display only the name in the ComboBox in cmbLanguage
+        cmbSearchMember.setConverter(new StringConverter<Member>() {
+            @Override
+            public String toString(Member member) {
+                return member != null ? member.getFullname() : "";
+            }
+
+            @Override
+            public Member fromString(String string) {
+                return cmbSearchMember.getItems().stream()
                         .filter(member -> member.getFullname().equals(string))
                         .findFirst()
                         .orElse(null);
@@ -144,7 +177,9 @@ public class BorrowingsController implements Initializable {
 
         cmbBorrowingStatus.setItems(borrowStatuses);
         cmbMember.setItems(members);
+        cmbSearchMember.setItems(members);
         cmbBook.setItems(books);
+        cmbSearchBook.setItems(books);
     }
 
     private void fillTable(){
@@ -228,6 +263,9 @@ public class BorrowingsController implements Initializable {
         }
         if(currentBorrowing.getBooks() == null){
             errors += "\nInvalid Book";
+        }
+        if(currentBorrowing.getDohandedover() != null && currentBorrowing.getDohandedover().isBefore(currentBorrowing.getDoborrowed())){
+            errors += "\nCheck Dates Again";
         }
 
         return errors;
@@ -316,6 +354,125 @@ public class BorrowingsController implements Initializable {
             alert.setContentText("You have Errors:" + errors);
             alert.show();
         }
+    }
+
+    public void update(){
+        loadFormData();
+        currentBorrowing.setId(oldBorrowing.getId());
+
+        String errors = getErrors();
+
+        if(errors.isEmpty()){
+            String updates = getUpdates();
+
+            if(!updates.isEmpty()){
+                Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+                a.setTitle("BookMaster");
+                a.setHeaderText("Borrowings Module - Update");
+                a.setContentText("You have following Updates \n\n" + updates);
+
+                Optional<ButtonType> result = a.showAndWait();
+                if(result.get() == ButtonType.OK){
+                    String status = BorrowingsService.put(currentBorrowing);
+                    if(status.equals("Success")){
+                        loadView();
+                        clearForm();
+
+                        alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("BookMaster");
+                        alert.setHeaderText("Borrowings Module - Update");
+                        alert.setContentText("Successfully Updated");
+                        alert.show();
+                    }else{
+                        alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("BookMaster");
+                        alert.setHeaderText("Borrowings Module - Update");
+                        alert.setContentText("Failed to Update as \n\n" + status);
+                        alert.show();
+                    }
+                }
+            }else{
+                alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("BookMaster");
+                alert.setHeaderText("Borrowings Module - Update");
+                alert.setContentText("Nothing To Update");
+                alert.show();
+            }
+        }else{
+            alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("BookMaster");
+            alert.setHeaderText("Borrowings Module - Update");
+            alert.setContentText("You Have Following Errors:\n\n" + errors);
+            alert.show();
+        }
+    }
+
+    public void delete(){
+        alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("BookMaster");
+        alert.setHeaderText("Borrowings Module - Delete");
+        alert.setContentText("Are you sure to Delete ?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if(result.get() == ButtonType.OK){
+            String status = BorrowingsService.delete(oldBorrowing);
+            if(status.equals("Success")){
+                loadView();
+                clearForm();
+                enableButtons(true,false,false);
+
+                alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("BookMaster");
+                alert.setHeaderText("Borrowings Module");
+                alert.setContentText("Borrowing Successfully Deleted");
+                alert.show();
+
+            }else{
+                alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("BookMaster");
+                alert.setHeaderText("Borrowings Module - Delete");
+                alert.setContentText("Failed Due to :\n\n" + status);
+                alert.show();
+            }
+
+        }
+    }
+
+    public void handleSearch(){
+
+        String sscode = txtSearchCode.getText();
+        String ssbook = "";
+        String ssmember = "";
+
+        try{
+            Books book = cmbSearchBook.getSelectionModel().getSelectedItem();
+            ssbook = book.getId().toString();
+        }catch(NullPointerException e){
+            ssbook = "";
+        }
+
+        try{
+            Member member = cmbSearchMember.getSelectionModel().getSelectedItem();
+            ssmember = member.getId().toString();
+        }catch(NullPointerException e){
+            ssmember = "";
+        }
+
+        HashMap<String,String> params = new HashMap<>();
+        params.put("ssbook",ssbook);
+        params.put("sscode",sscode);
+        params.put("ssmember",ssmember);
+
+        borrowings = FXCollections.observableList(BorrowingsService.get(params));
+        fillTable();
+    }
+
+    public void searchClear(){
+        cmbSearchMember.setValue(null);
+        txtSearchCode.clear();
+        cmbSearchBook.setValue(null);
+        loadView();
     }
 
     public void clearForm(){

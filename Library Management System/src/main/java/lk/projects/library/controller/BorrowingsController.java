@@ -10,10 +10,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.StringConverter;
 import lk.projects.library.dao.*;
 import lk.projects.library.entity.*;
+import lk.projects.library.service.BookService;
+import lk.projects.library.service.BorrowingsService;
 import lk.projects.library.service.LanguageService;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class BorrowingsController implements Initializable {
@@ -202,5 +206,126 @@ public class BorrowingsController implements Initializable {
 
         enableButtons(false,true,true);
 
+    }
+
+    public String getErrors(){
+        String errors = "";
+
+        if(currentBorrowing.getCode() == null){
+            errors += "\nInvalid Code";
+        }
+        if(currentBorrowing.getDoborrowed() == null){
+            errors += "\nInvalid Date of Borrowed";
+        }
+        if(currentBorrowing.getDohandedover() == null){
+            errors += "\nInvalid Date of Handover";
+        }
+        if(currentBorrowing.getMember() == null){
+            errors += "\nInvalid Member";
+        }
+        if(currentBorrowing.getBorrowStatus() == null){
+            errors += "\nInvalid Borrow Status";
+        }
+        if(currentBorrowing.getBooks() == null){
+            errors += "\nInvalid Book";
+        }
+
+        return errors;
+    }
+
+    public String getUpdates(){
+        String updates = "";
+
+        if(!currentBorrowing.getCode().equals(oldBorrowing.getCode())){
+            updates += "\nCode Updated ";
+        }
+        if(!currentBorrowing.getDohandedover().equals(oldBorrowing.getDohandedover())){
+            updates += "\nDate of HandedOver Updated ";
+        }
+        if(!currentBorrowing.getDoborrowed().equals(oldBorrowing.getDoborrowed())){
+            updates += "\nDate of Borrowed Updated ";
+        }
+        if(!currentBorrowing.getMember().getId().equals(oldBorrowing.getMember().getId())){
+            updates += "\nMember Updated ";
+        }
+        if(!currentBorrowing.getBorrowStatus().getId().equals(oldBorrowing.getBorrowStatus().getId())){
+            updates += "\nBorrow Status Updated ";
+        }
+        if(!currentBorrowing.getBooks().getId().equals(oldBorrowing.getBooks().getId())){
+            updates += "\nBook Updated ";
+        }
+
+        return updates;
+    }
+
+    public void loadFormData(){
+        String code = txtCode.getText();
+        LocalDate doborrowed = txtDoBorrowed.getValue();
+        LocalDate dohandedover = txtDoHandover.getValue();
+        Member selectedMember = cmbMember.getSelectionModel().getSelectedItem();
+        Books selectedBooks = cmbBook.getSelectionModel().getSelectedItem();
+        BorrowStatus selectedBorrowStatus = cmbBorrowingStatus.getSelectionModel().getSelectedItem();
+
+        currentBorrowing = Borrowings.builder()
+                .code(code)
+                .dohandedover(dohandedover)
+                .doborrowed(doborrowed)
+                .member(selectedMember)
+                .borrowStatus(selectedBorrowStatus)
+                .books(selectedBooks)
+                .build();
+    }
+
+    public void add(){
+        loadFormData();
+
+        String errors = getErrors();
+        alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("BookMaster");
+        alert.setHeaderText("Borrowings Module");
+
+        if(errors.isEmpty()){
+            String confmsg = "Are you sure to Proceed?\n";
+            alert.setContentText(confmsg);
+
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if(result.get() == ButtonType.OK){
+                String status = BorrowingsService.post(currentBorrowing);
+                if(status.equals("Success")){
+                    loadView();
+                    clearForm();
+
+                    alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("BookMaster");
+                    alert.setHeaderText("Borrowings Module");
+                    alert.setContentText("Successfully Saved");
+                    alert.show();
+                }else{
+                    alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("BookMaster");
+                    alert.setHeaderText("Borrowings Module");
+                    alert.setContentText("Failed to save as \n\n" + status);
+                    alert.show();
+                }
+            }
+        }else{
+            alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("BookMaster");
+            alert.setHeaderText("Borrowings Module");
+            alert.setContentText("You have Errors:" + errors);
+            alert.show();
+        }
+    }
+
+    public void clearForm(){
+        txtCode.clear();
+        txtDoHandover.setValue(null);
+        txtDoBorrowed.setValue(null);
+        cmbBook.setValue(null);
+        cmbBorrowingStatus.setValue(null);
+        cmbMember.setValue(null);
+
+        enableButtons(true,false,false);
     }
 }

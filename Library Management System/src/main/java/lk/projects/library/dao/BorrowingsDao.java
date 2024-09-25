@@ -68,4 +68,36 @@ public class BorrowingsDao {
         return get(qry);
     }
 
+    public static Borrowings getByCode(String code) {
+        String qry = "select * from borrowings where code=" + code;
+        return getBy(qry);
+    }
+
+    public static String save(Borrowings borrowings) {
+        String qry = "INSERT INTO borrowings (code,doborrowed,dohandedover,books_id,member_id,borrowstatus_id) VALUES('" +
+                borrowings.getCode()+"','" +
+                borrowings.getDoborrowed()+"','" +
+                borrowings.getDohandedover()+"','" +
+                borrowings.getBooks().getId()+"','" +
+                borrowings.getMember().getId()+"','" +
+                borrowings.getBorrowStatus().getId() +"')";
+
+        return CommonDao.modify(qry);
+    }
+
+    public static String update(Borrowings borrowings) {
+        String qry = "UPDATE borrowings set doborrowed='" + borrowings.getDoborrowed() +
+                "',code='" + borrowings.getCode() +
+                "',dohandedover='" + borrowings.getDohandedover() +
+                "',member_id='" + borrowings.getMember().getId() +
+                "',books_id='" + borrowings.getBooks().getId() +
+                "',borrowstatus_id='" + borrowings.getBorrowStatus().getId() +
+                "' WHERE id=" + borrowings.getId();
+        return CommonDao.modify(qry);
+    }
+
+    public static String delete(Integer id) {
+        String qry = "DELETE FROM borrowings WHERE id=" + id;
+        return CommonDao.modify(qry);
+    }
 }

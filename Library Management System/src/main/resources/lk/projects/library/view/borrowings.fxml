@@ -104,13 +104,13 @@
                               </Pane>
                               <HBox alignment="TOP_CENTER" layoutX="24.0" layoutY="282.0" prefHeight="37.0" prefWidth="275.0" spacing="10.0">
                                  <children>
-                                    <Button fx:id="btnAdd" mnemonicParsing="false" text="ADD" />
+                                    <Button fx:id="btnAdd" mnemonicParsing="false" onMouseClicked="#add" text="ADD" />
                                     <Button fx:id="btnUpdate" mnemonicParsing="false" text="UPDATE" />
                                     <Button fx:id="btnDelete" alignment="TOP_CENTER" mnemonicParsing="false" text="DELETE" />
                                     <Button fx:id="btnClear" mnemonicParsing="false" text="CLEAR" textAlignment="CENTER" />
                                  </children>
                               </HBox>
-                              <VBox layoutX="16.0" layoutY="56.0" prefHeight="253.0" prefWidth="113.0" spacing="16.0">
+                              <VBox layoutX="16.0" layoutY="56.0" prefHeight="210.0" prefWidth="113.0" spacing="16.0">
                                  <children>
                                     <Label text="Code">
                                        <font>

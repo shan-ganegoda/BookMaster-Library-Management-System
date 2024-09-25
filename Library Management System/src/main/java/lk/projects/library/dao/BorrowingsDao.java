@@ -2,6 +2,7 @@ package lk.projects.library.dao;
 
 
 import lk.projects.library.entity.Borrowings;
+import lk.projects.library.entity.Fine;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -65,6 +66,11 @@ public class BorrowingsDao {
 
     public static List<Borrowings> getAll() {
         String qry = "SELECT * FROM borrowings";
+        return get(qry);
+    }
+
+    public static List<Borrowings> getAllCon() {
+        String qry = "SELECT * FROM fine f,borrowings b where f.borrowings_id = b.id and b.borrowstatus_id = 2";
         return get(qry);
     }
 

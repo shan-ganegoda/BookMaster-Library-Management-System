@@ -1,11 +1,149 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.projects.library.controller.FineController">
+<AnchorPane prefHeight="648.0" prefWidth="875.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.projects.library.controller.FineController">
    <children>
-      <Label layoutX="286.0" layoutY="192.0" text="Fine" />
+      <Pane layoutX="-1.0" layoutY="-2.0" prefHeight="648.0" prefWidth="875.0">
+         <children>
+            <AnchorPane layoutX="2.0" layoutY="-5.0" prefHeight="648.0" prefWidth="875.0">
+               <children>
+                  <Pane layoutX="10.0" layoutY="10.0" prefHeight="648.0" prefWidth="875.0">
+                     <children>
+                        <Pane layoutX="-14.0" prefHeight="648.0" prefWidth="875.0" stylesheets="@../styles/categories.css">
+                           <children>
+                              <Pane fx:id="topPanel" layoutX="29.0" layoutY="14.0" prefHeight="50.0" prefWidth="817.0">
+                                 <children>
+                                    <Label layoutX="28.0" layoutY="10.0" text="Fine" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="20.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </Pane>
+                              <Pane fx:id="searchPane" layoutX="366.0" layoutY="88.0" prefHeight="200.0" prefWidth="480.0">
+                                 <children>
+                                    <Pane layoutY="-3.0" prefHeight="37.0" prefWidth="480.0" style="-fx-background-color: #253659; -fx-background-radius: 15 0 0 15; -fx-background-radius: 15 15 0 0;">
+                                       <children>
+                                          <Label layoutX="26.0" layoutY="4.0" prefHeight="30.0" prefWidth="113.0" text="Search" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Bold" size="15.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </Pane>
+                                    <Label layoutX="29.0" layoutY="60.0" text="Borrowing">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <HBox alignment="TOP_CENTER" layoutX="45.0" layoutY="100.0" prefHeight="37.0" prefWidth="275.0" spacing="10.0">
+                                       <children>
+                                          <Button fx:id="btnSearch" mnemonicParsing="false" text="Search" />
+                                          <Button fx:id="btnSearchClear" mnemonicParsing="false" text="CLEAR" />
+                                       </children>
+                                    </HBox>
+                                    <ComboBox fx:id="cmbSearchBorrowing" layoutX="106.0" layoutY="58.0" prefHeight="25.0" prefWidth="197.0" promptText="Select Borrowing" />
+                                 </children>
+                              </Pane>
+                              <Pane fx:id="tablePane" layoutX="366.0" layoutY="297.0" prefHeight="336.0" prefWidth="480.0">
+                                 <children>
+                                    <Pane prefHeight="37.0" prefWidth="480.0" style="-fx-background-color: #253659; -fx-background-radius: 15 0 0 15; -fx-background-radius: 15 15 0 0;">
+                                       <children>
+                                          <Label layoutX="23.0" layoutY="4.0" prefHeight="30.0" prefWidth="113.0" text="Data View" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Bold" size="15.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </Pane>
+                                    <TableView fx:id="tblFine" layoutY="37.0" prefHeight="289.0" prefWidth="480.0">
+                                       <columns>
+                                          <TableColumn fx:id="idCol" prefWidth="39.20001220703125" text="#" />
+                                          <TableColumn fx:id="fineCol" prefWidth="135.20001220703125" text="Fine" />
+                                          <TableColumn fx:id="fineStatusCol" prefWidth="157.5999755859375" text="Fine Status" />
+                                          <TableColumn fx:id="borrowingCol" prefWidth="147.199951171875" text="Borrowing" />
+                                       </columns>
+                                    </TableView>
+                                 </children>
+                              </Pane>
+                              <Pane fx:id="formPanel" layoutX="29.0" layoutY="88.0" prefHeight="545.0" prefWidth="322.0">
+                                 <children>
+                                    <Pane layoutX="1.0" layoutY="-3.0" prefHeight="37.0" prefWidth="322.0" style="-fx-background-color: #253659; -fx-background-radius: 15 0 0 15; -fx-background-radius: 15 15 0 0;">
+                                       <children>
+                                          <Label layoutX="22.0" layoutY="4.0" prefHeight="30.0" prefWidth="113.0" text="Form" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Bold" size="15.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </Pane>
+                                    <HBox alignment="TOP_CENTER" layoutX="24.0" layoutY="204.0" prefHeight="37.0" prefWidth="275.0" spacing="10.0">
+                                       <children>
+                                          <Button fx:id="btnAdd" mnemonicParsing="false" text="ADD" />
+                                          <Button fx:id="btnUpdate" mnemonicParsing="false" text="UPDATE" />
+                                          <Button fx:id="btnDelete" alignment="TOP_CENTER" mnemonicParsing="false" text="DELETE" />
+                                          <Button fx:id="btnClear" mnemonicParsing="false" text="CLEAR" textAlignment="CENTER" />
+                                       </children>
+                                    </HBox>
+                                    <VBox layoutX="16.0" layoutY="56.0" prefHeight="148.0" prefWidth="113.0" spacing="16.0">
+                                       <children>
+                                          <Label text="Borrowing">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Label text="Fine">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Label text="Late Days">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Label text="Fine Status">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                    <VBox layoutX="119.0" layoutY="53.0" prefHeight="148.0" prefWidth="183.0" spacing="10.0">
+                                       <children>
+                                          <ComboBox fx:id="cmbBorrowing" prefHeight="25.0" prefWidth="197.0" promptText="Select Borrowing" />
+                                          <TextField fx:id="txtFine" prefHeight="25.0" prefWidth="197.0" promptText="20000" />
+                                          <TextField fx:id="txtLateDays" prefHeight="25.0" prefWidth="197.0" promptText="xx" />
+                                          <ComboBox fx:id="cmbFineStatus" prefHeight="25.0" prefWidth="197.0" promptText="Select Fine" />
+                                       </children>
+                                    </VBox>
+                                    <ImageView fitHeight="289.0" fitWidth="340.0" layoutX="20.0" layoutY="241.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../images/fine.gif" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </Pane>
+                           </children>
+                        </Pane>
+                     </children>
+                  </Pane>
+               </children>
+            </AnchorPane>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>

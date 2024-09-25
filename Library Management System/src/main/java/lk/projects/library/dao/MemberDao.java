@@ -64,6 +64,11 @@ public class MemberDao {
 
     }
 
+    public static Member getById(int id) {
+        String qry = "select * from member where id=" + id;
+        return getBy(qry);
+    }
+
     public static List<Member> getAll(){
         String qry = "select * from member";
         return get(qry);

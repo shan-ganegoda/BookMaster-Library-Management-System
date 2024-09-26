@@ -246,19 +246,19 @@ public class MembersController implements Initializable {
     public String getErrors(){
         String errors = "";
 
-        if(currentMember.getFullname() == null){
+        if(currentMember.getFullname() == null || currentMember.getFullname().isEmpty()){
             errors += "\nInvalid Full Name";
         }
-        if(currentMember.getCode() == null){
+        if(currentMember.getCode() == null || currentMember.getCode().isEmpty()){
             errors += "\nInvalid Code";
         }
         if(currentMember.getDob() == null){
             errors += "\nInvalid Date of Birth";
         }
-        if(currentMember.getNic() == null){
+        if(currentMember.getNic() == null || currentMember.getNic().isEmpty()){
             errors += "\nInvalid Nic";
         }
-        if(currentMember.getAddress() == null){
+        if(currentMember.getAddress() == null || currentMember.getAddress().isEmpty()){
             errors += "\nInvalid Address";
         }
         if(currentMember.getDoregistered() == null){

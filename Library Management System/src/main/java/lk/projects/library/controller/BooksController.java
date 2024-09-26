@@ -258,25 +258,25 @@ public class BooksController implements Initializable {
     public String getErrors(){
         String errors = "";
 
-        if(currentBook.getTitle() == null){
+        if(currentBook.getTitle() == null || currentBook.getTitle().isEmpty()){
             errors += "\nInvalid Title";
         }
-        if(currentBook.getCode() == null){
+        if(currentBook.getCode() == null || currentBook.getCode().isEmpty()){
             errors += "\nInvalid Code";
         }
-        if(currentBook.getAuthor() == null){
+        if(currentBook.getAuthor() == null || currentBook.getAuthor().isEmpty()){
             errors += "\nInvalid Author";
         }
-        if(currentBook.getPublisher() == null){
+        if(currentBook.getPublisher() == null || currentBook.getPublisher().isEmpty()){
             errors += "\nInvalid Publisher";
         }
-        if(currentBook.getYopublication() == null){
+        if(currentBook.getYopublication() == null || currentBook.getYopublication() == 0){
             errors += "\nInvalid Year Of Publication";
         }
-        if(currentBook.getIsbn() == null){
+        if(currentBook.getIsbn() == null || currentBook.getIsbn().isEmpty()){
             errors += "\nInvalid Isbn";
         }
-        if(currentBook.getPages() == null){
+        if(currentBook.getPages() == null || currentBook.getPages() == 0){
             errors += "\nInvalid Pages";
         }
         if(currentBook.getDoadded() == null){
@@ -340,22 +340,33 @@ public class BooksController implements Initializable {
         String code = txtCode.getText();
         String author = txtAuthor.getText();
         String publisher = txtPublisher.getText();
-        Integer yopublish = Integer.parseInt(txtYear.getText());
+        String yopublish = txtYear.getText();
         String isbn = txtIsbn.getText();
-        Integer pages = Integer.parseInt(txtPages.getText());
+        String pages = txtPages.getText();
         LocalDate doadded = txtAdded.getValue();
         Category selectedCategory = cmbCategory.getSelectionModel().getSelectedItem();
         Language selectedLanguage = cmbLanguage.getSelectionModel().getSelectedItem();
         User selectedUser = cmbUser.getSelectionModel().getSelectedItem();
+
+        int yopublishnum = 0;
+        int pagesnum = 0;
+
+        if(!yopublish.isEmpty()){
+            yopublishnum = Integer.parseInt(yopublish);
+        }
+
+        if(!pages.isEmpty()){
+            pagesnum = Integer.parseInt(pages);
+        }
 
         currentBook = Books.builder()
                 .title(title)
                 .code(code)
                 .author(author)
                 .publisher(publisher)
-                .yopublication(yopublish)
+                .yopublication(yopublishnum)
                 .isbn(isbn)
-                .pages(pages)
+                .pages(pagesnum)
                 .doadded(doadded)
                 .category(selectedCategory)
                 .language(selectedLanguage)

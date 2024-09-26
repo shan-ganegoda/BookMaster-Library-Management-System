@@ -158,7 +158,6 @@ public class CategoriesController implements Initializable {
     public void add(){
         loadFormData();
 
-        System.out.println(currentCategory);
         String errors = getErrors();
         alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("BookMaster");

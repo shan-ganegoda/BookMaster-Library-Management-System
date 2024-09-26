@@ -246,7 +246,7 @@ public class BorrowingsController implements Initializable {
     public String getErrors(){
         String errors = "";
 
-        if(currentBorrowing.getCode() == null){
+        if(currentBorrowing.getCode() == null || currentBorrowing.getCode().isEmpty()){
             errors += "\nInvalid Code";
         }
         if(currentBorrowing.getDoborrowed() == null){

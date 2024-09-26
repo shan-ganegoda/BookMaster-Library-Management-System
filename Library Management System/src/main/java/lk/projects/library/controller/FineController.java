@@ -227,10 +227,10 @@ public class FineController implements Initializable {
     public String getErrors(){
         String errors = "";
 
-        if(currentFine.getFine() == null){
+        if(currentFine.getFine() == null || currentFine.getFine() == 0.0){
             errors += "\nInvalid Fine";
         }
-        if(currentFine.getLatedays() == null){
+        if(currentFine.getLatedays() == null || currentFine.getLatedays() == 0){
             errors += "\nInvalid Late Days";
         }
         if(currentFine.getFineStatus() == null){
@@ -263,14 +263,25 @@ public class FineController implements Initializable {
     }
 
     public void loadFormData(){
-        Double fine = Double.parseDouble(txtFine.getText());
-        Integer latedays = Integer.parseInt(txtLateDays.getText());
+        String fine = txtFine.getText();
+        String latedays = txtLateDays.getText();
         FineStatus selectedFineStatus = cmbFineStatus.getSelectionModel().getSelectedItem();
         Borrowings selectedBorrowings = cmbBorrowing.getSelectionModel().getSelectedItem();
 
+        int lastdaysnum = 0;
+        double finenum = 0.0;
+
+        if(!latedays.isEmpty()){
+            lastdaysnum = Integer.parseInt(latedays);
+        }
+
+        if(!fine.isEmpty()){
+            finenum = Double.parseDouble(fine);
+        }
+
         currentFine = Fine.builder()
-                .fine(fine)
-                .latedays(latedays)
+                .fine(finenum)
+                .latedays(lastdaysnum)
                 .fineStatus(selectedFineStatus)
                 .borrowings(selectedBorrowings)
                 .build();

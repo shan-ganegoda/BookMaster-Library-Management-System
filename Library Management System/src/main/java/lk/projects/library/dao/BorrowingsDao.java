@@ -70,12 +70,12 @@ public class BorrowingsDao {
     }
 
     public static List<Borrowings> getAllCon() {
-        String qry = "SELECT * FROM fine f,borrowings b where f.borrowings_id = b.id and b.borrowstatus_id = 2";
+        String qry = "SELECT * FROM borrowings where borrowstatus_id = 2";
         return get(qry);
     }
 
     public static Borrowings getByCode(String code) {
-        String qry = "select * from borrowings where code=" + code;
+        String qry = "select * from borrowings where code='" + code +"'";
         return getBy(qry);
     }
 

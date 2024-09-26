@@ -79,7 +79,7 @@ public class FineDao {
 
 
     public static String update(Fine fine) {
-        String qry = "UPDATE books set fine='" + fine.getFine() +
+        String qry = "UPDATE fine set fine='" + fine.getFine() +
                 "',latedays=" + fine.getLatedays() +
                 ",borrowings_id=" + fine.getBorrowings().getId() +
                 ",finestatus_id=" + fine.getFineStatus().getId() +

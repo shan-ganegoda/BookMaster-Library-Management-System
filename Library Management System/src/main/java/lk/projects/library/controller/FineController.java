@@ -1,6 +1,8 @@
 package lk.projects.library.controller;
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,10 +12,15 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.StringConverter;
 import lk.projects.library.dao.*;
 import lk.projects.library.entity.*;
+import lk.projects.library.service.BorrowingsService;
+import lk.projects.library.service.FineService;
 import lk.projects.library.service.LanguageService;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class FineController implements Initializable {
@@ -54,6 +61,7 @@ public class FineController implements Initializable {
 
     Fine currentFine;
     Fine oldFine;
+    Borrowings br;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -118,9 +126,35 @@ public class FineController implements Initializable {
             }
         });
 
+        cmbBorrowing.valueProperty().addListener(new ChangeListener<Borrowings>() {
+            @Override
+            public void changed(ObservableValue ov, Borrowings t, Borrowings t1) {
+                cmbBorrowingAp();
+            }
+        });
+
 
         loadView();
         enableButtons(true,false,false);
+    }
+
+    public void cmbBorrowingAp(){
+        br = cmbBorrowing.getSelectionModel().getSelectedItem();
+        if (br != null) {
+            long daysBetween = ChronoUnit.DAYS.between(br.getDoborrowed(), br.getDohandedover());
+            if(daysBetween > 14){
+                int latedays = Math.toIntExact(daysBetween - 14);
+                txtLateDays.setText(Integer.toString(latedays));
+                CalculateFine(latedays);
+            }
+        }
+    }
+
+    public void CalculateFine(int latedays){
+        double dayfine = 10.50;
+
+        double totalfine = dayfine * latedays;
+        txtFine.setText(Double.toString(totalfine));
     }
 
     private void loadView() {
@@ -168,7 +202,7 @@ public class FineController implements Initializable {
         txtLateDays.setText(fine.getLatedays().toString());
 
         for (FineStatus fs : fineStatuses) {
-            if (Objects.equals(fs.getId(), fine.getBorrowings().getId())) {
+            if (Objects.equals(fs.getId(), fine.getFineStatus().getId())) {
                 cmbFineStatus.setValue(fs);
                 break;
             }
@@ -188,4 +222,161 @@ public class FineController implements Initializable {
         enableButtons(false,true,true);
 
     }
+
+    public String getErrors(){
+        String errors = "";
+
+        if(currentFine.getFine() == null){
+            errors += "\nInvalid Fine";
+        }
+        if(currentFine.getLatedays() == null){
+            errors += "\nInvalid Late Days";
+        }
+        if(currentFine.getFineStatus() == null){
+            errors += "\nInvalid Fine Status";
+        }
+        if(currentFine.getBorrowings() == null){
+            errors += "\nInvalid Borrowings";
+        }
+
+        return errors;
+    }
+
+    public String getUpdates(){
+        String updates = "";
+
+        if(!currentFine.getFine().equals(oldFine.getFine())){
+            updates += "\nFine Updated ";
+        }
+        if(!currentFine.getLatedays().equals(oldFine.getLatedays())){
+            updates += "\nLate Days Updated ";
+        }
+        if(!currentFine.getBorrowings().getId().equals(oldFine.getBorrowings().getId())){
+            updates += "\nBorrowings Updated ";
+        }
+        if(!currentFine.getFineStatus().getId().equals(oldFine.getFineStatus().getId())){
+            updates += "\nFine Status Updated ";
+        }
+
+        return updates;
+    }
+
+    public void loadFormData(){
+        Double fine = Double.parseDouble(txtFine.getText());
+        Integer latedays = Integer.parseInt(txtLateDays.getText());
+        FineStatus selectedFineStatus = cmbFineStatus.getSelectionModel().getSelectedItem();
+        Borrowings selectedBorrowings = cmbBorrowing.getSelectionModel().getSelectedItem();
+
+        currentFine = Fine.builder()
+                .fine(fine)
+                .latedays(latedays)
+                .fineStatus(selectedFineStatus)
+                .borrowings(selectedBorrowings)
+                .build();
+    }
+
+    public void add(){
+        loadFormData();
+
+        String errors = getErrors();
+        alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("BookMaster");
+        alert.setHeaderText("Fine Module");
+
+        if(errors.isEmpty()){
+            String confmsg = "Are you sure to Proceed?\n";
+            alert.setContentText(confmsg);
+
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if(result.get() == ButtonType.OK){
+                String status = FineService.post(currentFine);
+                if(status.equals("Success")){
+                    loadView();
+                    clearForm();
+
+                    alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("BookMaster");
+                    alert.setHeaderText("Fine Module");
+                    alert.setContentText("Successfully Saved");
+                    alert.show();
+                }else{
+                    alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("BookMaster");
+                    alert.setHeaderText("Fine Module");
+                    alert.setContentText("Failed to save as \n\n" + status);
+                    alert.show();
+                }
+            }
+        }else{
+            alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("BookMaster");
+            alert.setHeaderText("Fine Module");
+            alert.setContentText("You have Errors:" + errors);
+            alert.show();
+        }
+    }
+
+    public void update(){
+        loadFormData();
+        currentFine.setId(oldFine.getId());
+        String errors = getErrors();
+
+        if(errors.isEmpty()){
+            String updates = getUpdates();
+
+            if(!updates.isEmpty()){
+                Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+                a.setTitle("BookMaster");
+                a.setHeaderText("Fine Module - Update");
+                a.setContentText("You have following Updates \n\n" + updates);
+
+                Optional<ButtonType> result = a.showAndWait();
+                if(result.get() == ButtonType.OK){
+                    String status = FineService.put(currentFine);
+                    if(status.equals("Success")){
+                        loadView();
+                        clearForm();
+
+                        alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("BookMaster");
+                        alert.setHeaderText("Fine Module - Update");
+                        alert.setContentText("Successfully Updated");
+                        alert.show();
+                    }else{
+                        alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("BookMaster");
+                        alert.setHeaderText("Fine Module - Update");
+                        alert.setContentText("Failed to Update as \n\n" + status);
+                        alert.show();
+                    }
+                }
+            }else{
+                alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("BookMaster");
+                alert.setHeaderText("Fine Module - Update");
+                alert.setContentText("Nothing To Update");
+                alert.show();
+            }
+        }else{
+            alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("BookMaster");
+            alert.setHeaderText("Fine Module - Update");
+            alert.setContentText("You Have Following Errors:\n\n" + errors);
+            alert.show();
+        }
+    }
+
+    public void clearForm(){
+        txtFine.clear();
+        txtLateDays.clear();
+        cmbBorrowing.setValue(null);
+        cmbFineStatus.setValue(null);
+
+        loadView();
+
+        enableButtons(true,false,false);
+    }
+
+
 }

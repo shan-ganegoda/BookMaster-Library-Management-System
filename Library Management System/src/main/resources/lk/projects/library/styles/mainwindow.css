@@ -27,3 +27,16 @@
 .btnNav:hover{
     -fx-background-color: #8FA9DB;
 }
+
+#btnLogout{
+    -fx-background-color: #f83b38;
+    -fx-text-fill: white;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px 5px;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+}
+
+#btnLogout:hover {
+    -fx-background-color: #fb2f2c;  /* Darker Red */
+}

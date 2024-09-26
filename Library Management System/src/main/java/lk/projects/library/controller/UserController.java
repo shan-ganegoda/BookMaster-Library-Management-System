@@ -208,13 +208,13 @@ public class UserController implements Initializable {
     public String getErrors(){
         String errors = "";
 
-        if(currentUser.getFullname() == null){
+        if(currentUser.getFullname() == null || currentUser.getFullname().isEmpty()){
             errors += "\nInvalid Full Name";
         }
-        if(currentUser.getUsername() == null){
+        if(currentUser.getUsername() == null || currentUser.getUsername().isEmpty()){
             errors += "\nInvalid Username";
         }
-        if(currentUser.getPassword() == null){
+        if(currentUser.getPassword() == null || currentUser.getPassword().isEmpty()){
             errors += "\nInvalid Password";
         }
         if(currentUser.getRole() == null){

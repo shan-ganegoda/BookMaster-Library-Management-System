@@ -135,7 +135,7 @@
                      </image>
                   </ImageView>
                   <Label fx:id="lblUsername" alignment="CENTER" layoutX="-1.0" layoutY="154.0" prefHeight="18.0" prefWidth="228.0" text="Lakshan Ruwinda" textAlignment="CENTER" textFill="WHITE" />
-                  <Button fx:id="btnLogout" onAction="#logout" layoutX="14.0" layoutY="621.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="199.0" text="Logout">
+                  <Button fx:id="btnLogout" layoutX="14.0" layoutY="616.0" mnemonicParsing="false" onAction="#logout" prefHeight="25.0" prefWidth="199.0" text="Logout">
                      <graphic>
                         <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                            <image>

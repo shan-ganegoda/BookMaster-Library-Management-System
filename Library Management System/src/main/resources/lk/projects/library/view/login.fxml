@@ -32,11 +32,11 @@
                   <Font name="Tahoma" size="14.0" />
                </font>
             </Label>
-            <Label fx:id="lblClose" layoutX="9.0" layoutY="2.0" onMouseClicked="#closeWindow" text="X" textFill="#ff0000">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
+            <ImageView fx:id="lblClose" onMouseClicked="#closeWindow" fitHeight="27.0" fitWidth="38.0" layoutX="8.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../images/Icons/close.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </children>

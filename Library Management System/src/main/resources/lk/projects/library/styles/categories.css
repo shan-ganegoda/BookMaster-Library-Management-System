@@ -21,3 +21,21 @@
     -fx-border-radius: 15;
     -fx-background-radius: 15;
 }
+
+.button{
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-background-radius: 5px;
+    -fx-padding: 8px 10px;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+}
+
+.button:hover {
+    -fx-background-color: #45a049;  /* Darker green */
+}
+
+.button:pressed {
+    -fx-background-color: #3e8e41;  /* Even darker green */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.8), 10, 0, 0, 2);
+}

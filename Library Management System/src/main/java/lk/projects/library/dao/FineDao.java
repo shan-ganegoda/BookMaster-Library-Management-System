@@ -93,7 +93,7 @@ public class FineDao {
     }
 
     public static List<Fine> getAllByBorrowing(Integer borrowingid) {
-        String qry = "SELECT * FROM fine where title =" + borrowingid;
+        String qry = "SELECT * FROM fine where borrowings_id =" + borrowingid;
         return get(qry);
     }
 }

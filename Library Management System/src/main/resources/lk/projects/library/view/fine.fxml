@@ -51,8 +51,8 @@
                                     </Label>
                                     <HBox alignment="TOP_CENTER" layoutX="45.0" layoutY="100.0" prefHeight="37.0" prefWidth="275.0" spacing="10.0">
                                        <children>
-                                          <Button fx:id="btnSearch" mnemonicParsing="false" text="Search" />
-                                          <Button fx:id="btnSearchClear" mnemonicParsing="false" text="CLEAR" />
+                                          <Button fx:id="btnSearch" onMouseClicked="#handleSearch" mnemonicParsing="false" text="Search" />
+                                          <Button fx:id="btnSearchClear" onMouseClicked="#searchClear" mnemonicParsing="false" text="CLEAR" />
                                        </children>
                                     </HBox>
                                     <ComboBox fx:id="cmbSearchBorrowing" layoutX="106.0" layoutY="58.0" prefHeight="25.0" prefWidth="197.0" promptText="Select Borrowing" />
@@ -94,7 +94,7 @@
                                        <children>
                                           <Button fx:id="btnAdd" onMouseClicked="#add" mnemonicParsing="false" text="ADD" />
                                           <Button fx:id="btnUpdate" onMouseClicked="#update" mnemonicParsing="false" text="UPDATE" />
-                                          <Button fx:id="btnDelete" alignment="TOP_CENTER" mnemonicParsing="false" text="DELETE" />
+                                          <Button fx:id="btnDelete" onMouseClicked="#delete" alignment="TOP_CENTER" mnemonicParsing="false" text="DELETE" />
                                           <Button fx:id="btnClear" onMouseClicked="#clearForm" mnemonicParsing="false" text="CLEAR" textAlignment="CENTER" />
                                        </children>
                                     </HBox>
@@ -127,7 +127,7 @@
                                           <ComboBox fx:id="cmbBorrowing" prefHeight="25.0" prefWidth="197.0" promptText="Select Borrowing" />
                                           <TextField fx:id="txtFine" prefHeight="25.0" prefWidth="197.0" promptText="20000" />
                                           <TextField fx:id="txtLateDays" prefHeight="25.0" prefWidth="197.0" promptText="xx" />
-                                          <ComboBox fx:id="cmbFineStatus" prefHeight="25.0" prefWidth="197.0" promptText="Select Fine" />
+                                          <ComboBox fx:id="cmbFineStatus" prefHeight="25.0" prefWidth="197.0" promptText="Select FineStatus" />
                                        </children>
                                     </VBox>
                                     <ImageView fitHeight="289.0" fitWidth="340.0" layoutX="20.0" layoutY="241.0" pickOnBounds="true" preserveRatio="true">

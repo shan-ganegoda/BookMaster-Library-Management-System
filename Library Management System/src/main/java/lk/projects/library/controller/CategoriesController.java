@@ -77,6 +77,7 @@ public class CategoriesController implements Initializable {
         });
 
         loadTable();
+        enableButtons(true,false,false);
     }
 
 

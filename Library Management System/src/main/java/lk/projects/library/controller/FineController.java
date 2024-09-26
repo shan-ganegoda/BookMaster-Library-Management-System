@@ -19,6 +19,7 @@ import lk.projects.library.service.LanguageService;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -365,6 +366,61 @@ public class FineController implements Initializable {
             alert.setContentText("You Have Following Errors:\n\n" + errors);
             alert.show();
         }
+    }
+
+    public void delete(){
+        alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("BookMaster");
+        alert.setHeaderText("Fine Module - Delete");
+        alert.setContentText("Are you sure to Delete ?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if(result.get() == ButtonType.OK){
+            String status = FineService.delete(oldFine);
+            if(status.equals("Success")){
+                loadView();
+                clearForm();
+                enableButtons(true,false,false);
+
+                alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("BookMaster");
+                alert.setHeaderText("Fine Module");
+                alert.setContentText("Fine Successfully Deleted");
+                alert.show();
+
+            }else{
+                alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("BookMaster");
+                alert.setHeaderText("Fine Module - Delete");
+                alert.setContentText("Failed Due to :\n\n" + status);
+                alert.show();
+            }
+
+        }
+    }
+
+    public void handleSearch(){
+
+        String ssborrowing = "";
+
+        try{
+            Borrowings borrowing = cmbSearchBorrowing.getSelectionModel().getSelectedItem();
+            ssborrowing = borrowing.getId().toString();
+        }catch(NullPointerException e){
+            ssborrowing = "";
+        }
+
+        HashMap<String,String> params = new HashMap<>();
+        params.put("ssborrowing",ssborrowing);
+
+        fines = FXCollections.observableList(FineService.get(params));
+        fillTable();
+    }
+
+    public void searchClear(){
+        cmbSearchBorrowing.setValue(null);
+        loadView();
     }
 
     public void clearForm(){

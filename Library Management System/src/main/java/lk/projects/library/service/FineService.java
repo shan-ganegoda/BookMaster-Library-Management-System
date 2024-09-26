@@ -6,6 +6,10 @@ import lk.projects.library.dao.FineDao;
 import lk.projects.library.entity.Borrowings;
 import lk.projects.library.entity.Fine;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 public class FineService {
 
     public static String post(Fine fine) {
@@ -66,5 +70,22 @@ public class FineService {
         }
 
         return msg;
+    }
+
+    public static List<Fine> get(HashMap<String, String> params) {
+
+        List<Fine> fines = new ArrayList<Fine>();
+
+        if(params.isEmpty()){
+            fines = FineDao.getAll();
+        }
+
+        String ssborrowing = params.get("ssborrowing");
+
+        if(!ssborrowing.isEmpty()){
+            fines = FineDao.getAllByBorrowing(Integer.parseInt(ssborrowing));
+        }
+
+        return fines;
     }
 }

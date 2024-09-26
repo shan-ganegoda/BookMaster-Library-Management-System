@@ -123,10 +123,10 @@ public class CategoriesController implements Initializable {
     public String getErrors(){
         String errors = "";
 
-        if(currentCategory.getName() == null){
+        if(currentCategory.getName().isEmpty()){
             errors += "\nInvalid Name";
         }
-        if(currentCategory.getCode() == null){
+        if(currentCategory.getCode().isEmpty()){
             errors += "\nInvalid Code";
         }
 
@@ -158,6 +158,7 @@ public class CategoriesController implements Initializable {
     public void add(){
         loadFormData();
 
+        System.out.println(currentCategory);
         String errors = getErrors();
         alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("BookMaster");
